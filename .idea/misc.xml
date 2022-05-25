@@ -5,10 +5,11 @@
       <map>
         <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2945" />
         <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2945" />
+        <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/drawable/ic_logo_2048.xml" value="0.5475" />
         <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/layout-land/activity_main.xml" value="0.4691358024691358" />
         <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/layout-sw600dp/activity_main.xml" value="0.415625" />
         <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/layout/activity_game.xml" value="0.2689969604863222" />
-        <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/layout/activity_main.xml" value="0.5" />
       </map>
     </option>
   </component>
