@@ -16,4 +16,33 @@ public class Board {
             }
         }
     }
+
+    public BoardSpace getRandomAvailableSpace() {
+        //todo
+    }
+
+    public void insertTile(BoardTile tile) {
+        //todo
+        gameBoard[tile.getX()][tile.getY()] = tile;
+    }
+
+    public void removeTile(BoardTile tile) {
+        //todo
+        gameBoard[tile.getX()][tile.getY()] = null;
+    }
+
+    public void isPositionAvailable() {
+        //todo
+    }
+
+    public BoardTile getPositionContent (BoardSpace space) {
+        BoardTile content;
+        if (space != null) {
+            content = gameBoard[space.getX()][space.getY()];
+        } else {
+            content = null;
+        }
+        return content;
+    }
+
 }
