@@ -15,12 +15,11 @@
         android:layout_weight="1"
         android:fontFamily="@font/roboto_black"
         android:text="QUI C'È IL GIOCO!!!!!"
-        android:textAlignment="center"
         android:textSize="24sp"
         android:typeface="sans" />
 
     <fo.pigdm.colors2048.view.TestCustomDrawableView
-        android:id="@+id/testCustomView"
+        android:id="@+id/testCustomDrawableView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"

@@ -3,6 +3,7 @@ package fo.pigdm.colors2048.view;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.util.AttributeSet;
 import android.view.View;
 import android.graphics.Paint;
 
@@ -28,6 +29,29 @@ public class TestCustomDrawableView extends View {
         heightRect = 300;
     }
 
+    public TestCustomDrawableView(Context context, AttributeSet attributes) {
+        super(context, attributes);
+
+        paint = new Paint();
+
+        xTopLeftCornerRect = 50;
+        yTopLeftCornerRect = 50;
+        widthRect = 300;
+        heightRect = 300;
+    }
+
+    public TestCustomDrawableView(Context context, AttributeSet attributes, int defStyle) {
+        super(context, attributes, defStyle);
+
+        paint = new Paint();
+
+        xTopLeftCornerRect = 50;
+        yTopLeftCornerRect = 50;
+        widthRect = 300;
+        heightRect = 300;
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         paint.setStyle(Paint.Style.FILL);
 
