@@ -5,7 +5,6 @@ import java.util.HashMap;
 public class GameLevels {
 
     int[] levels = new int[7];
-    HashMap<level, palette>;
 
 
 

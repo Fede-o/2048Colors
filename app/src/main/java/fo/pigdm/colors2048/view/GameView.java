@@ -5,7 +5,7 @@ import android.content.Context;
 public class GameView implements IView {
 
     public GameView(Context context) {
-        super(context);
 
+        //todo
     }
 }

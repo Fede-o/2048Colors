@@ -15,4 +15,6 @@ public interface ILogic {
 
     public void moveTile();
 
+    public void getRandomPosition();
+
 }

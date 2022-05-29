@@ -49,13 +49,18 @@ public class GameEngine implements ILogic {
     }
 
     @Override
-    public void getRandomPosition() {
+    public void randomTile() {
+        //todo
+    }
 
+    @Override
+    public void getRandomPosition() {
+        //todo
     }
 
     @Override
     public void moveTile() {
-
+        //todo
     }
 
 

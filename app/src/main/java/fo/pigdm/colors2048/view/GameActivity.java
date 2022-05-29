@@ -8,9 +8,12 @@ import fo.pigdm.colors2048.R;
 
 public class GameActivity extends AppCompatActivity {
 
+    TestCustomDrawableView testView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        testView = new TestCustomDrawableView(this);
+        setContentView(testView);
     }
 }

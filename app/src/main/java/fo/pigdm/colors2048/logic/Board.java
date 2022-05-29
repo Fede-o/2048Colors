@@ -17,9 +17,11 @@ public class Board {
         }
     }
 
+    /*
     public BoardSpace getRandomAvailableSpace() {
         //todo
     }
+    */
 
     public void insertTile(BoardTile tile) {
         //todo
