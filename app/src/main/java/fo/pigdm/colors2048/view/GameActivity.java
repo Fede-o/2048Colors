@@ -14,6 +14,6 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         testView = new TestCustomDrawableView(this);
-        setContentView(testView);
+        setContentView(R.layout.activity_game);
     }
 }
