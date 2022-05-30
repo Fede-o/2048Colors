@@ -7,18 +7,47 @@
     android:orientation="vertical"
     tools:context=".view.GameActivity">
 
-    <TextView
-        android:id="@+id/textView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="top"
-        android:layout_weight="1"
-        android:fontFamily="@font/roboto_black"
-        android:text="QUI C'È IL GIOCO!!!!!"
-        android:textSize="24sp"
-        android:typeface="sans" />
+        android:layout_weight="1">
 
-    <fo.pigdm.colors2048.view.TestCustomDrawableView
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_black"
+            android:text="2048Colors"
+            android:textSize="24sp"
+            android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_lock_silent_mode_off"
+            tools:layout_editor_absoluteX="297dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <fo.pigdm.colors2048.view.testView.TestCustomDrawableView
         android:id="@+id/testCustomDrawableView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

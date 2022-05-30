@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import fo.pigdm.colors2048.R;
+import fo.pigdm.colors2048.view.testView.TestCustomDrawableView;
 
 public class GameActivity extends AppCompatActivity {
 
