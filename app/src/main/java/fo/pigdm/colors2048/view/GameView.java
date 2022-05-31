@@ -2,6 +2,7 @@ package fo.pigdm.colors2048.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
@@ -20,6 +21,8 @@ public class GameView extends View implements IView {
     float boardStartingY;
     float boardEndingX;
     float boardEndingY;
+    float boardWidth;
+    float boardHeight;
     private final Paint paint = new Paint();
 
 
@@ -50,7 +53,7 @@ public class GameView extends View implements IView {
         slotSize = Math.min(width / (GameEngine.getInstance().NUM_COLUMNS + 1), height / (GameEngine.getInstance().NUM_ROWS + 3));
         boardMargin = slotSize / 7;
         int boardMiddleX = width / 2;
-        int boardMiddleY = (height / 2) + (slotSize / 2);
+        int boardMiddleY = (height / 2);
 
         //board dimensions
         double halfNumBoardColumns = (double)GameEngine.getInstance().NUM_COLUMNS / (double)2;
@@ -60,16 +63,17 @@ public class GameView extends View implements IView {
         boardEndingX = (float) (boardMiddleX + ((slotSize + boardMargin) * halfNumBoardColumns) + boardMargin / 2);
         boardEndingY = (float) (boardMiddleY + ((slotSize + boardMargin) * halfNumBoardRows) + boardMargin / 2);
 
-        float boardWidth = boardEndingX - boardEndingY;
+        boardWidth = boardEndingX - boardStartingX;
+        boardHeight = boardEndingY - boardStartingY;
     }
 
     @Override
     public void onDraw(Canvas canvas) {
-
-        drawSlots(canvas);
+        drawBoardAndSlots(canvas);
+        drawTiles(canvas);
     }
 
-    private void drawSlots(Canvas canvas) {
+    private void drawTiles(Canvas canvas) {
         for (int y = 0; y < GameEngine.getInstance().NUM_ROWS; y++) {
             for (int x = 0; x < GameEngine.getInstance().NUM_COLUMNS; x++) {
                 int slotStartX = (int) boardStartingX + boardMargin + ((slotSize + boardMargin) * x);
@@ -83,6 +87,23 @@ public class GameView extends View implements IView {
                     canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
 
                 }
+            }
+        }
+    }
+
+    private void drawBoardAndSlots(Canvas canvas) {
+        paint.setColor(Color.GRAY);
+        canvas.drawRoundRect((float) boardStartingX, (float) boardStartingY, (float) boardEndingX, (float) boardEndingY, (float) 50, (float) 50, paint);
+        paint.setColor(Color.LTGRAY);
+        for (int y = 0; y < GameEngine.getInstance().NUM_ROWS; y++) {
+            for (int x = 0; x < GameEngine.getInstance().NUM_COLUMNS; x++) {
+                int slotStartX = (int) boardStartingX + boardMargin + ((slotSize + boardMargin) * x);
+                int slotEndX = slotStartX + slotSize;
+                int slotStartY = (int) boardStartingY + boardMargin + ((slotSize + boardMargin) * y);
+                int slotEndY = slotStartY + slotSize;
+
+                canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
+
             }
         }
     }
