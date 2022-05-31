@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00FFFFFF"
+    android:background="?android:attr/colorBackground"
     android:screenOrientation="portrait"
     tools:context=".view.MainActivity">
 
@@ -26,6 +26,7 @@
             android:fontFamily="@font/roboto_black"
             android:text="2048Colors"
             android:textAlignment="center"
+            android:textColor="@color/md_theme_dark_inversePrimary"
             android:textSize="48sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -148,17 +149,19 @@
 
         <Button
             android:id="@+id/tutorial_button"
+            style="@style/Theme.2048Colors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/roboto_black"
             android:text="TUTORIAL"
             app:cornerRadius="50dp"
-            app:iconTint="#03A9F4"
+            app:iconTint="@color/md_theme_light_primaryInverse"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:rippleColor="@color/md_theme_light_primary" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
