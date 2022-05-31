@@ -1,17 +1,13 @@
 package fo.pigdm.colors2048.logic;
 
-import android.content.Context;
-
-import fo.pigdm.colors2048.view.IView;
+import android.graphics.Color;
 
 public class GameEngine implements ILogic {
 
     public final static int NUM_ROWS = 4;
     public final static int NUM_COLUMNS = 4;
 
-    private final Context context;
-    private IView view;
-
+    private static GameEngine instance = null;
 
     Board board = null;
     int currentLevel = 0;
@@ -20,9 +16,7 @@ public class GameEngine implements ILogic {
     boolean isPlaying = false;
 
 
-    public GameEngine(Context context, IView view) {
-        this.context = context;
-        this.view = view;
+    private GameEngine() {
         newGame();
         isPlaying = true;
         score = 0;
@@ -44,7 +38,16 @@ public class GameEngine implements ILogic {
 
     @Override
     public void generateTile() {
-        BoardTile tileToInsert = new BoardTile(1, 1, 1);
+        Tile tileToInsert = new Tile(1, 1, Color.YELLOW);
+        board.insertTile(tileToInsert);
+        tileToInsert.setX(0);
+        tileToInsert.setY(0);
+        board.insertTile(tileToInsert);
+        tileToInsert.setX(2);
+        tileToInsert.setY(2);
+        board.insertTile(tileToInsert);
+        tileToInsert.setX(3);
+        tileToInsert.setY(3);
         board.insertTile(tileToInsert);
     }
 
@@ -63,5 +66,21 @@ public class GameEngine implements ILogic {
         //todo
     }
 
+    public int getTileColor(int x, int y) {
+        Tile tile = this.board.getSlotContent(x, y);
+        if(tile != null){
+            return tile.getColor();
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public static GameEngine getInstance() {
+        if(instance == null) {
+            instance = new GameEngine();
+        }
+        return instance;
+    }
 
 }

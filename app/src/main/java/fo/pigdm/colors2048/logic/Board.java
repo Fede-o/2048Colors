@@ -2,10 +2,10 @@ package fo.pigdm.colors2048.logic;
 
 public class Board {
 
-    BoardTile[][] gameBoard;
+    Tile[][] gameBoard;
 
     public Board(int sizeX, int sizeY) {
-        gameBoard = new BoardTile[sizeX][sizeY];
+        gameBoard = new Tile[sizeX][sizeY];
         clearBoard();
     }
 
@@ -18,17 +18,17 @@ public class Board {
     }
 
     /*
-    public BoardSpace getRandomAvailableSpace() {
+    public Slot getRandomAvailableSpace() {
         //todo
     }
     */
 
-    public void insertTile(BoardTile tile) {
+    public void insertTile(Tile tile) {
         //todo
         gameBoard[tile.getX()][tile.getY()] = tile;
     }
 
-    public void removeTile(BoardTile tile) {
+    public void removeTile(Tile tile) {
         //todo
         gameBoard[tile.getX()][tile.getY()] = null;
     }
@@ -37,10 +37,10 @@ public class Board {
         //todo
     }
 
-    public BoardTile getPositionContent (BoardSpace space) {
-        BoardTile content;
-        if (space != null) {
-            content = gameBoard[space.getX()][space.getY()];
+    public Tile getSlotContent (int x, int y) {
+        Tile content;
+        if (x < gameBoard.length & y < gameBoard[0].length) {
+            content = gameBoard[x][y];
         } else {
             content = null;
         }

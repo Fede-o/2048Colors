@@ -1,10 +1,10 @@
 package fo.pigdm.colors2048.logic;
 
-public class BoardTile extends BoardSpace {
+public class Tile extends Slot {
 
     private int color = 0;
 
-    public BoardTile(int x, int y, int color) {
+    public Tile(int x, int y, int color) {
         super(x,y);
         this.color = color;
     }
@@ -13,7 +13,7 @@ public class BoardTile extends BoardSpace {
         return this.color;
     }
 
-    public void updatePosition(BoardSpace space) {
+    public void updatePosition(Slot space) {
         this.setX(space.getX());
         this.setY(space.getY());
     }

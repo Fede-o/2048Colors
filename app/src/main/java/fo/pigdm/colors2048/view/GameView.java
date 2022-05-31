@@ -1,11 +1,97 @@
 package fo.pigdm.colors2048.view;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.util.AttributeSet;
+import android.view.View;
 
-public class GameView implements IView {
+import fo.pigdm.colors2048.logic.GameEngine;
 
-    public GameView(Context context) {
 
-        //todo
+public class GameView extends View implements IView {
+
+    private static GameView instance = null;
+
+
+    int slotSize = 0;
+    int boardMargin = 0;
+    float boardStartingX;
+    float boardStartingY;
+    float boardEndingX;
+    float boardEndingY;
+    private final Paint paint = new Paint();
+
+
+    //forme
+
+    private GameView(Context context) {
+        super(context);
+        GameEngine.getInstance().newGame();
     }
+
+    public GameView(Context context, AttributeSet attributes) {
+        super(context, attributes);
+        GameEngine.getInstance().newGame();
+    }
+
+    @Override
+    protected void onLayout (boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+
+        int width = this.getWidth();
+        int height = this.getHeight();
+
+        this.setElementsDimensions(width, height);
+
+    }
+
+    private void setElementsDimensions(int width, int height) {
+        slotSize = Math.min(width / (GameEngine.getInstance().NUM_COLUMNS + 1), height / (GameEngine.getInstance().NUM_ROWS + 3));
+        boardMargin = slotSize / 7;
+        int boardMiddleX = width / 2;
+        int boardMiddleY = (height / 2) + (slotSize / 2);
+
+        //board dimensions
+        double halfNumBoardColumns = (double)GameEngine.getInstance().NUM_COLUMNS / (double)2;
+        double halfNumBoardRows = (double)GameEngine.getInstance().NUM_ROWS / (double)2;
+        boardStartingX = (float) (boardMiddleX - ((slotSize + boardMargin) * halfNumBoardColumns) - boardMargin / 2);
+        boardStartingY = (float) (boardMiddleY - ((slotSize + boardMargin) * halfNumBoardRows) - boardMargin / 2);
+        boardEndingX = (float) (boardMiddleX + ((slotSize + boardMargin) * halfNumBoardColumns) + boardMargin / 2);
+        boardEndingY = (float) (boardMiddleY + ((slotSize + boardMargin) * halfNumBoardRows) + boardMargin / 2);
+
+        float boardWidth = boardEndingX - boardEndingY;
+    }
+
+    @Override
+    public void onDraw(Canvas canvas) {
+
+        drawSlots(canvas);
+    }
+
+    private void drawSlots(Canvas canvas) {
+        for (int y = 0; y < GameEngine.getInstance().NUM_ROWS; y++) {
+            for (int x = 0; x < GameEngine.getInstance().NUM_COLUMNS; x++) {
+                int slotStartX = (int) boardStartingX + boardMargin + ((slotSize + boardMargin) * x);
+                int slotEndX = slotStartX + slotSize;
+                int slotStartY = (int) boardStartingY + boardMargin + ((slotSize + boardMargin) * y);
+                int slotEndY = slotStartY + slotSize;
+
+                int currentTileColor = GameEngine.getInstance().getTileColor(x, y);
+                if (currentTileColor != -1) {
+                    paint.setColor(currentTileColor);
+                    canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
+
+                }
+            }
+        }
+    }
+
+    /*public static GameView getInstance(Context context, AttributeSet attributes) {
+        if(instance == null) {
+            instance = new GameView(context, attributes);
+        }
+        return instance;
+    }
+    */
 }

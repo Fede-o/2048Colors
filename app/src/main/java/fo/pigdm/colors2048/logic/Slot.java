@@ -1,10 +1,10 @@
 package fo.pigdm.colors2048.logic;
 
-public class BoardSpace {
+public class Slot {
     private int spaceX;
     private int spaceY;
 
-    public BoardSpace(int x, int y) {
+    public Slot(int x, int y) {
         this.spaceX = x;
         this.spaceY = y;
     }

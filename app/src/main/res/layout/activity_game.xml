@@ -32,7 +32,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
@@ -42,13 +42,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_lock_silent_mode_off"
-            tools:layout_editor_absoluteX="297dp" />
+            app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <fo.pigdm.colors2048.view.testView.TestCustomDrawableView
-        android:id="@+id/testCustomDrawableView"
+    <fo.pigdm.colors2048.view.GameView
+        android:id="@+id/gameView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
