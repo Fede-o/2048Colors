@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import fo.pigdm.colors2048.logic.GameEngine;
@@ -24,6 +25,7 @@ public class GameView extends View implements IView {
     float boardWidth;
     float boardHeight;
     private final Paint paint = new Paint();
+
 
 
     //forme
@@ -108,11 +110,12 @@ public class GameView extends View implements IView {
         }
     }
 
-    /*public static GameView getInstance(Context context, AttributeSet attributes) {
+    public static GameView getInstance(Context context, AttributeSet attributes) {
         if(instance == null) {
             instance = new GameView(context, attributes);
         }
         return instance;
     }
-    */
+
+
 }

@@ -1,5 +1,8 @@
 package fo.pigdm.colors2048.logic;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Board {
 
     Tile[][] gameBoard;
@@ -17,24 +20,40 @@ public class Board {
         }
     }
 
-    /*
-    public Slot getRandomAvailableSpace() {
-        //todo
-    }
-    */
 
     public void insertTile(Tile tile) {
-        //todo
+
         gameBoard[tile.getX()][tile.getY()] = tile;
     }
 
     public void removeTile(Tile tile) {
-        //todo
+
         gameBoard[tile.getX()][tile.getY()] = null;
     }
 
-    public void isPositionAvailable() {
-        //todo
+    public Slot getRandomAvailableSlot() {
+        ArrayList<Slot> availableSlots = getAvailableSlots();
+        if(!availableSlots.isEmpty()){
+            Random random = new Random();
+            Slot randomSlot = availableSlots.get(random.nextInt(availableSlots.size()));
+            return randomSlot;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public ArrayList<Slot> getAvailableSlots() {
+        ArrayList<Slot> availableSlots = new ArrayList<>();
+        for (int x = 0; x < this.gameBoard.length; x++) {
+            for (int y = 0; y < this.gameBoard[0].length; y++) {
+                if (this.gameBoard[x][y] == null) {
+                    Slot slot = new Slot(x, y);
+                    availableSlots.add(slot);
+                }
+            }
+        }
+        return availableSlots;
     }
 
     public Tile getSlotContent (int x, int y) {
@@ -46,5 +65,15 @@ public class Board {
         }
         return content;
     }
+
+    public boolean isSlotAvailable(int x, int y) {
+        if(gameBoard[x][y] == null){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
 
 }
