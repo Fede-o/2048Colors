@@ -35,6 +35,7 @@ public class GameView extends View implements IView {
         GameEngine.getInstance().newGame();
     }
 
+    //CONSTRUCTOR FOR GENERATION OF VIEW FROM XML LAYOUT
     public GameView(Context context, AttributeSet attributes) {
         super(context, attributes);
         GameEngine.getInstance().newGame();
@@ -135,16 +136,21 @@ public class GameView extends View implements IView {
                     if(newX > prevX) {
                         //SWIPE RIGHT
                         //GameEngine.getInstance().playerMove(1);
+                        //invalidate();
+                        //GameEngine.getInstance().generateTile();
                     }else{
                         //SWIPE LEFT
                         //GameEngine.getInstance().playerMove(3);
+                        //invalidate();
+                        //GameEngine.getInstance().generateTile();
                     }
                 }else{
                     //VERTICAL SWIPE
                     if(newY < prevY) {
                         //SWIPE UP
-                        //GameEngine.getInstance().playerMove(0);
-
+                        GameEngine.getInstance().playerMove(0);
+                        invalidate();
+                        GameEngine.getInstance().generateTile();
 
                     }else{
                         //SWIPE DOWN
