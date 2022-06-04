@@ -14,7 +14,7 @@ import fo.pigdm.colors2048.view.testView.TestCustomDrawableView;
 
 public class GameActivity extends AppCompatActivity {
 
-    float prevX, prevY;
+
 
 
     @Override
@@ -37,44 +37,5 @@ public class GameActivity extends AppCompatActivity {
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
     }
 
-    /*@Override
-    public boolean onTouchEvent(MotionEvent motionEvent) {
-        switch (motionEvent.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                prevX = motionEvent.getX();
-                prevY = motionEvent.getY();
 
-                break;
-
-            case MotionEvent.ACTION_UP:
-                float newX = motionEvent.getX();
-                float newY = motionEvent.getY();
-
-                if(Math.abs(newX - prevX) > Math.abs(newY - prevY)){
-                    //HORIZONTAL SWIPE
-                    if(newX > prevX) {
-                        //SWIPE RIGHT
-                        //GameEngine.getInstance().playerMove(1);
-                    }else{
-                        //SWIPE LEFT
-                        //GameEngine.getInstance().playerMove(3);
-                    }
-                }else{
-                    //VERTICAL SWIPE
-                    if(newY < prevY) {
-                        //SWIPE UP
-                        GameEngine.getInstance().playerMove(0);
-
-                    }else{
-                        //SWIPE DOWN
-                        //GameEngine.getInstance().playerMove(2);
-                    }
-                }
-                break;
-
-        }
-
-        return true;
-    }
-     */
 }

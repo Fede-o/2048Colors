@@ -60,42 +60,73 @@ public class GameEngine implements ILogic {
     public void playerMove(int direction) {
         //trovare la posizione più lontana libera nella direzione
         //direction 0 = UP, 1 = RIGHT, 2 = DOWN, 3 = LEFT
-        if (direction == 0){
+        if (direction == 2){
             for(int x = 0; x < NUM_COLUMNS; x++) {
 
-                Tile tileToMove;
-                for(int y = 0; y < NUM_ROWS; y++) {
-                    if(!board.isSlotAvailable(x,y)){
-                        tileToMove = board.getSlotContent(x,y);
-                        moveTile(tileToMove, getFinalSlotToMove(tileToMove, 0));
+                for(int y = (NUM_ROWS-1); y >= 0; y--) {
 
+                    if(board.getSlotContent(x,y) != null){
+                        Tile tileToMove = board.getSlotContent(x,y);
+                        //moveTile(tileToMove, getFinalSlotToMove(tileToMove, 2));
+                        Slot previousSlot;
+                        Slot nextSlot = new Slot(tileToMove.getX(), tileToMove.getY());
+                        //for direction DOWN = 2
+                        for(int i = y; i < NUM_ROWS; i++) {
+                            if (board.isSlotAvailable(x, i)) {
+                                previousSlot = nextSlot;
+                                nextSlot = new Slot(previousSlot.getX(), (previousSlot.getY() + 1));
+                            }
+                        }
+                        moveTile(tileToMove, nextSlot);
                     }
                 }
 
-
-
             }
         }
-
     }
 
-    public Slot getFinalSlotToMove(Tile tile, int direction) {
+
+    /*public Slot getFinalSlotToMove(Tile tile, int direction) {
         //slot to analyze
         Slot currentSlot = new Slot(tile.getX(), tile.getY());
         //final slot to move the tile
         Slot finalSlot = currentSlot;
-
         //direction UP
         if (direction == 0 ) {
+            if (currentSlot.getY() == 0) {
 
-            do {
-                    currentSlot.setY(currentSlot.getY()-1);
+                finalSlot = currentSlot;
+            }
+            else {
+                currentSlot.setY(currentSlot.getY() - 1);
+                while (board.isSlotAvailable(currentSlot.getX(), currentSlot.getY()) && currentSlot.getY() > 0) {
                     finalSlot = currentSlot;
-            } while (board.isSlotAvailable(currentSlot.getX(), currentSlot.getY()) && currentSlot.getY() >= 0);
+                    currentSlot.setY(currentSlot.getY() - 1);
 
+                }
+
+            }
         }
         return finalSlot;
     }
+    */
+
+    private Slot getFinalSlotToMove(Tile tile, int direction) {
+        Slot previousSlot;
+        Slot nextSlot = new Slot(tile.getX(), tile.getY());
+        //for direction DOWN = 2
+        if (direction == 2) {
+
+            while (nextSlot.getX() < NUM_COLUMNS && nextSlot.getY() < NUM_ROWS && board.isSlotAvailable(nextSlot.getX(), nextSlot.getY())) {
+                previousSlot = nextSlot;
+                nextSlot = new Slot(previousSlot.getX(), (previousSlot.getY() + 1));
+            }
+
+        }
+        return nextSlot;
+    }
+
+
 
     //sostituire il colore salvato nella tile con il codice colore e spostare i colori in un xml
     public int getTileColor(int x, int y) {

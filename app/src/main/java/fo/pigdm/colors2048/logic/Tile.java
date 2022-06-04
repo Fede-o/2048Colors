@@ -13,9 +13,9 @@ public class Tile extends Slot {
         return this.color;
     }
 
-    public void updatePosition(Slot space) {
-        this.setX(space.getX());
-        this.setY(space.getY());
+    public void updatePosition(Slot slot) {
+        this.setX(slot.getX());
+        this.setY(slot.getY());
     }
 
 }
