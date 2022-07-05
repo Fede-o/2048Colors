@@ -16,6 +16,7 @@ public class GameView extends View implements IView {
     private static ILogic logic;
 
 
+
     int slotSize = 0;
     int boardMargin = 0;
     float boardStartingX;
@@ -104,9 +105,18 @@ public class GameView extends View implements IView {
                             canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
                             break;
                         case 3:
+                            paint.setColor(Color.CYAN);
+                            canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
+                            break;
+                        case 4:
                             paint.setColor(Color.BLUE);
                             canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
                             break;
+                        default:
+                            paint.setColor(Color.BLACK);
+                            canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
+                            break;
+
                     }
                 }
             }

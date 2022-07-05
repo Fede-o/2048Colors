@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_black"
-            android:text="LIVELLO 1"
+            android:text="LIVELLO TEST superfacile"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,20 +60,86 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_black"
-            android:text="QUI VA LA PALETTE COLORI DEL LIVELLO"
-            android:textAlignment="center"
-            android:textSize="20sp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.407"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.884" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+            <ImageView
+                android:id="@+id/PaletteColor1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                app:tint="#FF0B00"
+                android:tintMode="src_over"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@mipmap/ic_launcher_background" />
+
+            <ImageView
+                android:id="@+id/PaletteColor2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:tintMode="src_over"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@mipmap/ic_launcher_background"
+                app:tint="#FFE500" />
+
+            <ImageView
+                android:id="@+id/PaletteColor3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:tintMode="src_over"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@mipmap/ic_launcher_background"
+                app:tint="#00FF0A" />
+
+            <ImageView
+                android:id="@+id/PaletteColor4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:tintMode="src_over"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@mipmap/ic_launcher_background"
+                app:tint="#00E2FF" />
+
+            <ImageView
+                android:id="@+id/PaletteColor5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:tintMode="src_over"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@mipmap/ic_launcher_background"
+                app:tint="#0027FF" />
+
+            <ImageView
+                android:id="@+id/PaletteColor6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:tintMode="src_over"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@mipmap/ic_launcher_background"
+                app:tint="#000000" />
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <fo.pigdm.colors2048.view.GameView
