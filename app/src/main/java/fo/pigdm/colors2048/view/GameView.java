@@ -85,10 +85,29 @@ public class GameView extends View implements IView {
                 int slotEndY = slotStartY + slotSize;
 
                 int currentTileColor = logic.getTileColor(x, y);
+                //DA IMPLEMENTARE PALETTE COLORI LIVELLI
+                //todo
                 if (currentTileColor != -1) {
-                    paint.setColor(currentTileColor);
-                    canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
+                    switch(currentTileColor){
+                        case 0:
+                            paint.setColor(Color.RED);
+                            canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
+                            break;
 
+                        case 1:
+                            paint.setColor(Color.YELLOW);
+                            canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
+                            break;
+
+                        case 2:
+                            paint.setColor(Color.GREEN);
+                            canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
+                            break;
+                        case 3:
+                            paint.setColor(Color.BLUE);
+                            canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
+                            break;
+                    }
                 }
             }
         }

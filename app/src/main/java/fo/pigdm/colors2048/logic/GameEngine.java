@@ -56,7 +56,7 @@ public class GameEngine implements ILogic {
     public void generateTile() {
         Slot availableSlot = this.board.getRandomAvailableSlot();
 
-        Tile tileToInsert= new Tile(availableSlot.getX(), availableSlot.getY(), Color.RED);
+        Tile tileToInsert= new Tile(availableSlot.getX(), availableSlot.getY(), 0);
         board.insertTile(tileToInsert);
     }
 
@@ -74,76 +74,103 @@ public class GameEngine implements ILogic {
         //direction 0 = UP, 1 = RIGHT, 2 = DOWN, 3 = LEFT
         boolean moved = false;
 
-        //for direction UP = 0
-        if (direction == 0) {
-            for(int x = 0; x < NUM_COLUMNS; x++) {
-                for(int y = 0; y < NUM_ROWS; y++) {
+        switch(direction) {
+            //for direction UP = 0
+            case 0:
+                for(int x = 0; x < NUM_COLUMNS; x++) {
+                    for(int y = 0; y < NUM_ROWS; y++) {
+                        if(board.getSlotContent(x,y) != null) {
+                            Tile tileToMove = board.getSlotContent(x,y);
+                            //find next tile in the same direction and verify if they merge
+                            Tile next = getNextTile(tileToMove, 0);
 
-                    if(board.getSlotContent(x,y) != null) {
-                        Tile tileToMove = board.getSlotContent(x,y);
-                        Slot finalSlot = getFinalSlotToMove(tileToMove, 0);
-                        if(finalSlot.getY() != tileToMove.getY()) {
-                            moved = true;
+                            if(next != null && next.getColor() == tileToMove.getColor()){
+                                tileToMove = new Tile(tileToMove.getX(), tileToMove.getY(), tileToMove.getColor() + 1);
+                                board.removeTile(next);
+                            }
+
+                            Slot finalSlot = getFinalSlotToMove(tileToMove, 0);
+                            if(finalSlot.getY() != tileToMove.getY()) {
+                                moved = true;
+                            }
+                            moveTile(tileToMove, finalSlot);
                         }
-                        moveTile(tileToMove, finalSlot);
                     }
                 }
-            }
-        }
+                break;
 
-        //for direction RIGHT = 1
-        if (direction == 1) {
-            for (int y = 0; y < NUM_ROWS; y++) {
-                for (int x = (NUM_COLUMNS - 1); x >= 0; x--) {
+            //for direction RIGHT = 1
+            case 1:
+                for (int y = 0; y < NUM_ROWS; y++) {
+                    for (int x = (NUM_COLUMNS - 1); x >= 0; x--) {
+                        if (board.getSlotContent(x, y) != null) {
+                            Tile tileToMove = board.getSlotContent(x, y);
+                            //find next tile in the same direction and verify if they merge
+                            Tile next = getNextTile(tileToMove, 1);
 
-                    if (board.getSlotContent(x, y) != null) {
-                        Tile tileToMove = board.getSlotContent(x, y);
-                        Slot finalSlot = getFinalSlotToMove(tileToMove, 1);
-                        if (finalSlot.getX() != tileToMove.getX()) {
-                            moved = true;
+                            if(next != null && next.getColor() == tileToMove.getColor()){
+                                tileToMove = new Tile(tileToMove.getX(), tileToMove.getY(), tileToMove.getColor() + 1);
+                                board.removeTile(next);
+                            }
+
+                            Slot finalSlot = getFinalSlotToMove(tileToMove, 1);
+                            if (finalSlot.getX() != tileToMove.getX()) {
+                                moved = true;
+                            }
+                            moveTile(tileToMove, finalSlot);
                         }
-                        moveTile(tileToMove, finalSlot);
                     }
                 }
-            }
-        }
+                break;
 
+            //for direction DOWN = 2
+            case 2:
+                for (int x = 0; x < NUM_COLUMNS; x++) {
+                    for (int y = (NUM_ROWS - 1); y >= 0; y--) {
+                        if (board.getSlotContent(x, y) != null) {
+                            Tile tileToMove = board.getSlotContent(x, y);
+                            //find next tile in the same direction and verify if they merge
+                            Tile next = getNextTile(tileToMove, 2);
 
-        //for direction DOWN = 2
-        if (direction == 2) {
-            for (int x = 0; x < NUM_COLUMNS; x++) {
-                for (int y = (NUM_ROWS - 1); y >= 0; y--) {
+                            if(next != null && next.getColor() == tileToMove.getColor()){
+                                tileToMove = new Tile(tileToMove.getX(), tileToMove.getY(), tileToMove.getColor() + 1);
+                                board.removeTile(next);
+                            }
 
-                    if (board.getSlotContent(x, y) != null) {
-                        Tile tileToMove = board.getSlotContent(x, y);
-                        Slot finalSlot = getFinalSlotToMove(tileToMove, 2);
+                            Slot finalSlot = getFinalSlotToMove(tileToMove, 2);
 
-                        if (finalSlot.getY() != tileToMove.getY()) {
-                            moved = true;
+                            if (finalSlot.getY() != tileToMove.getY()) {
+                                moved = true;
+                            }
+                            moveTile(tileToMove, finalSlot);
                         }
-                        moveTile(tileToMove, finalSlot);
                     }
-
                 }
-            }
-        }
+                break;
 
         //for direction LEFT = 3
-        if (direction == 3) {
-            for(int y = 0; y < NUM_ROWS; y++) {
-                for(int x = 0; x < NUM_COLUMNS; x++) {
+            case 3:
+                for(int y = 0; y < NUM_ROWS; y++) {
+                    for(int x = 0; x < NUM_COLUMNS; x++) {
+                        if(board.getSlotContent(x,y) != null) {
+                            Tile tileToMove = board.getSlotContent(x,y);
+                            //find next tile in the same direction and verify if they merge
+                            Tile next = getNextTile(tileToMove, 3);
 
-                    if(board.getSlotContent(x,y) != null) {
-                        Tile tileToMove = board.getSlotContent(x,y);
-                        Slot finalSlot = getFinalSlotToMove(tileToMove, 3);
-                        if(finalSlot.getX() != tileToMove.getX()) {
-                            moved = true;
+                            if(next != null && next.getColor() == tileToMove.getColor()){
+                                tileToMove = new Tile(tileToMove.getX(), tileToMove.getY(), tileToMove.getColor() + 1);
+                                board.removeTile(next);
+                            }
+
+                            Slot finalSlot = getFinalSlotToMove(tileToMove, 3);
+                            if(finalSlot.getX() != tileToMove.getX()) {
+                                moved = true;
+                            }
+                            moveTile(tileToMove, finalSlot);
                         }
-                        moveTile(tileToMove, finalSlot);
-
                     }
                 }
-            }
+                break;
         }
 
         if(moved){
@@ -151,13 +178,60 @@ public class GameEngine implements ILogic {
         }
     }
 
+    private Tile getNextTile(Tile tile, int direction) {
+        //todo
+
+        switch(direction) {
+            //for direction UP = 0
+            case 0:
+                for(int i = (tile.getY() - 1); i >= 0; i--) {
+                    if (board.getSlotContent(tile.getX(), i) != null) {
+                        return board.getSlotContent(tile.getX(), i);
+                    }
+                }
+                break;
+
+            //for direction RIGHT = 1
+            case 1:
+                for(int i = (tile.getX() + 1); i < NUM_COLUMNS; i++) {
+                    if (board.getSlotContent(i, tile.getY()) != null) {
+                        return board.getSlotContent(i, tile.getY());
+                    }
+                }
+                break;
+
+            //for direction DOWN = 2
+            case 2:
+
+                for(int i = (tile.getY() + 1); i < NUM_ROWS; i++) {
+                    if (board.getSlotContent(tile.getX(), i) != null) {
+                        return board.getSlotContent(tile.getX(), i);
+                    }
+                }
+                break;
+
+
+            //for direction LEFT = 3
+            case 3:
+                for(int i = (tile.getX() - 1); i >= 0; i--) {
+                    if (board.getSlotContent(i, tile.getY()) != null) {
+                        return board.getSlotContent(i, tile.getY());
+                    }
+                }
+                break;
+        }
+
+        return null;
+    }
+
 
     private Slot getFinalSlotToMove(Tile tile, int direction) {
         Slot previousSlot;
         Slot nextSlot = new Slot(tile.getX(), tile.getY());
 
+        switch(direction) {
         //for direction UP = 0
-        if (direction == 0) {
+            case 0:
 
             for(int i = tile.getY(); i >= 0; i--) {
                 if (board.isSlotAvailable(tile.getX(), i)) {
@@ -165,11 +239,10 @@ public class GameEngine implements ILogic {
                     nextSlot = new Slot(previousSlot.getX(), (previousSlot.getY() - 1));
                 }
             }
-
-        }
+            break;
 
         //for direction RIGHT = 1
-        if (direction == 1) {
+            case 1:
 
             for(int i = tile.getX(); i < NUM_COLUMNS; i++) {
                 if (board.isSlotAvailable(i, tile.getY())) {
@@ -177,11 +250,11 @@ public class GameEngine implements ILogic {
                     nextSlot = new Slot((previousSlot.getX() + 1), previousSlot.getY());
                 }
             }
+            break;
 
-        }
 
         //for direction DOWN = 2
-        if (direction == 2) {
+            case 2:
 
             for(int i = tile.getY(); i < NUM_ROWS; i++) {
                 if (board.isSlotAvailable(tile.getX(), i)) {
@@ -189,11 +262,10 @@ public class GameEngine implements ILogic {
                     nextSlot = new Slot(previousSlot.getX(), (previousSlot.getY() + 1));
                 }
             }
-
-        }
+            break;
 
         //for direction LEFT = 3
-        if (direction == 3) {
+            case 3:
 
             for(int i = tile.getX(); i >= 0; i--) {
                 if (board.isSlotAvailable(i, tile.getY())) {
@@ -201,11 +273,13 @@ public class GameEngine implements ILogic {
                     nextSlot = new Slot((previousSlot.getX() - 1), previousSlot.getY());
                 }
             }
-
+            break;
         }
 
         return nextSlot;
     }
+
+
 
 
 
