@@ -8,12 +8,12 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import fo.pigdm.colors2048.logic.GameEngine;
+import fo.pigdm.colors2048.logic.ILogic;
 
 
 public class GameView extends View implements IView {
 
-    private static GameView instance = null;
+    private static ILogic logic;
 
 
     int slotSize = 0;
@@ -30,15 +30,15 @@ public class GameView extends View implements IView {
 
     //forme
 
-    private GameView(Context context) {
+    public GameView(Context context) {
         super(context);
-        GameEngine.getInstance().newGame();
+        //logic.newGame();
     }
 
     //CONSTRUCTOR FOR GENERATION OF VIEW FROM XML LAYOUT
     public GameView(Context context, AttributeSet attributes) {
         super(context, attributes);
-        GameEngine.getInstance().newGame();
+        //logic.newGame();
     }
 
     @Override
@@ -53,14 +53,14 @@ public class GameView extends View implements IView {
     }
 
     private void setElementsDimensions(int width, int height) {
-        slotSize = Math.min(width / (GameEngine.getInstance().NUM_COLUMNS + 1), height / (GameEngine.getInstance().NUM_ROWS + 3));
+        slotSize = Math.min(width / (logic.getNumColumns() + 1), height / (logic.getNumRows() + 3));
         boardMargin = slotSize / 7;
         int boardMiddleX = width / 2;
         int boardMiddleY = (height / 2);
 
         //board dimensions
-        double halfNumBoardColumns = (double)GameEngine.getInstance().NUM_COLUMNS / (double)2;
-        double halfNumBoardRows = (double)GameEngine.getInstance().NUM_ROWS / (double)2;
+        double halfNumBoardColumns = (double)logic.getNumColumns() / (double)2;
+        double halfNumBoardRows = (double)logic.getNumRows() / (double)2;
         boardStartingX = (float) (boardMiddleX - ((slotSize + boardMargin) * halfNumBoardColumns) - boardMargin / 2);
         boardStartingY = (float) (boardMiddleY - ((slotSize + boardMargin) * halfNumBoardRows) - boardMargin / 2);
         boardEndingX = (float) (boardMiddleX + ((slotSize + boardMargin) * halfNumBoardColumns) + boardMargin / 2);
@@ -77,14 +77,14 @@ public class GameView extends View implements IView {
     }
 
     private void drawTiles(Canvas canvas) {
-        for (int y = 0; y < GameEngine.getInstance().NUM_ROWS; y++) {
-            for (int x = 0; x < GameEngine.getInstance().NUM_COLUMNS; x++) {
+        for (int y = 0; y < logic.getNumRows(); y++) {
+            for (int x = 0; x < logic.getNumColumns(); x++) {
                 int slotStartX = (int) boardStartingX + boardMargin + ((slotSize + boardMargin) * x);
                 int slotEndX = slotStartX + slotSize;
                 int slotStartY = (int) boardStartingY + boardMargin + ((slotSize + boardMargin) * y);
                 int slotEndY = slotStartY + slotSize;
 
-                int currentTileColor = GameEngine.getInstance().getTileColor(x, y);
+                int currentTileColor = logic.getTileColor(x, y);
                 if (currentTileColor != -1) {
                     paint.setColor(currentTileColor);
                     canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
@@ -98,8 +98,8 @@ public class GameView extends View implements IView {
         paint.setColor(Color.GRAY);
         canvas.drawRoundRect((float) boardStartingX, (float) boardStartingY, (float) boardEndingX, (float) boardEndingY, (float) 50, (float) 50, paint);
         paint.setColor(Color.LTGRAY);
-        for (int y = 0; y < GameEngine.getInstance().NUM_ROWS; y++) {
-            for (int x = 0; x < GameEngine.getInstance().NUM_COLUMNS; x++) {
+        for (int y = 0; y < logic.getNumRows(); y++) {
+            for (int x = 0; x < logic.getNumColumns(); x++) {
                 int slotStartX = (int) boardStartingX + boardMargin + ((slotSize + boardMargin) * x);
                 int slotEndX = slotStartX + slotSize;
                 int slotStartY = (int) boardStartingY + boardMargin + ((slotSize + boardMargin) * y);
@@ -111,11 +111,8 @@ public class GameView extends View implements IView {
         }
     }
 
-    public static GameView getInstance(Context context, AttributeSet attributes) {
-        if(instance == null) {
-            instance = new GameView(context, attributes);
-        }
-        return instance;
+    public void setLogic(ILogic logic) {
+        this.logic = logic;
     }
 
     @Override
@@ -135,28 +132,27 @@ public class GameView extends View implements IView {
                     //HORIZONTAL SWIPE
                     if(newX > prevX) {
                         //SWIPE RIGHT
-                        //GameEngine.getInstance().playerMove(1);
-                        //invalidate();
-                        //GameEngine.getInstance().generateTile();
+                        logic.playerMove(1);
+                        invalidate();
+
                     }else{
                         //SWIPE LEFT
-                        //GameEngine.getInstance().playerMove(3);
-                        //invalidate();
-                        //GameEngine.getInstance().generateTile();
+                        logic.playerMove(3);
+                        invalidate();
+
                     }
                 }else{
                     //VERTICAL SWIPE
                     if(newY < prevY) {
                         //SWIPE UP
-                        GameEngine.getInstance().playerMove(0);
+                        logic.playerMove(0);
                         invalidate();
-                        GameEngine.getInstance().generateTile();
 
                     }else{
                         //SWIPE DOWN
-                        GameEngine.getInstance().playerMove(2);
+                        logic.playerMove(2);
                         invalidate();
-                        GameEngine.getInstance().generateTile();
+
                     }
                 }
                 break;

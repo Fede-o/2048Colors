@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 
 import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.logic.GameEngine;
+import fo.pigdm.colors2048.logic.ILogic;
 import fo.pigdm.colors2048.view.testView.TestCustomDrawableView;
 
 public class GameActivity extends AppCompatActivity {
@@ -22,6 +23,12 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         hideSystemBars();
+
+        ILogic gameEngine = new GameEngine();
+        IView gameView = findViewById(R.id.gameView);
+        gameEngine.setView(gameView);
+        gameView.setLogic(gameEngine);
+        gameEngine.newGame();
     }
 
 

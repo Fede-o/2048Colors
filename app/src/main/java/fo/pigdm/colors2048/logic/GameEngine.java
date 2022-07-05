@@ -6,12 +6,14 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
+import fo.pigdm.colors2048.view.IView;
+
 public class GameEngine implements ILogic {
 
     public final static int NUM_ROWS = 4;
     public final static int NUM_COLUMNS = 4;
 
-    private static GameEngine instance = null;
+    private static IView gameView;
 
     Board board = null;
     int currentLevel = 0;
@@ -20,7 +22,7 @@ public class GameEngine implements ILogic {
     boolean isPlaying = false;
 
 
-    private GameEngine() {
+    public GameEngine() {
         newGame();
         isPlaying = true;
         score = 0;
@@ -38,6 +40,16 @@ public class GameEngine implements ILogic {
         board.clearBoard();
         generateTile();
 
+    }
+
+    @Override
+    public int getNumRows() {
+        return NUM_ROWS;
+    }
+
+    @Override
+    public int getNumColumns() {
+        return NUM_COLUMNS;
     }
 
     @Override
@@ -60,6 +72,7 @@ public class GameEngine implements ILogic {
     public void playerMove(int direction) {
         //trovare la posizione più lontana libera nella direzione
         //direction 0 = UP, 1 = RIGHT, 2 = DOWN, 3 = LEFT
+        boolean moved = false;
 
         //for direction UP = 0
         if (direction == 0) {
@@ -68,70 +81,74 @@ public class GameEngine implements ILogic {
 
                     if(board.getSlotContent(x,y) != null) {
                         Tile tileToMove = board.getSlotContent(x,y);
-                        moveTile(tileToMove, getFinalSlotToMove(tileToMove, 0));
+                        Slot finalSlot = getFinalSlotToMove(tileToMove, 0);
+                        if(finalSlot.getY() != tileToMove.getY()) {
+                            moved = true;
+                        }
+                        moveTile(tileToMove, finalSlot);
                     }
                 }
             }
         }
 
         //for direction RIGHT = 1
-        /*if (direction == 1) {
-            for(int y = 0; y < NUM_ROWS; y++) {
-                for(int x = (NUM_COLUMNS - 1); y >= 0; y--) {
+        if (direction == 1) {
+            for (int y = 0; y < NUM_ROWS; y++) {
+                for (int x = (NUM_COLUMNS - 1); x >= 0; x--) {
 
-                    if(board.getSlotContent(x,y) != null) {
-                        Tile tileToMove = board.getSlotContent(x,y);
-                        moveTile(tileToMove, getFinalSlotToMove(tileToMove, 1));
+                    if (board.getSlotContent(x, y) != null) {
+                        Tile tileToMove = board.getSlotContent(x, y);
+                        Slot finalSlot = getFinalSlotToMove(tileToMove, 1);
+                        if (finalSlot.getX() != tileToMove.getX()) {
+                            moved = true;
+                        }
+                        moveTile(tileToMove, finalSlot);
                     }
                 }
             }
         }
 
-         */
 
         //for direction DOWN = 2
-        if (direction == 2){
-            for(int x = 0; x < NUM_COLUMNS; x++) {
+        if (direction == 2) {
+            for (int x = 0; x < NUM_COLUMNS; x++) {
+                for (int y = (NUM_ROWS - 1); y >= 0; y--) {
 
-                for(int y = (NUM_ROWS - 1); y >= 0; y--) {
+                    if (board.getSlotContent(x, y) != null) {
+                        Tile tileToMove = board.getSlotContent(x, y);
+                        Slot finalSlot = getFinalSlotToMove(tileToMove, 2);
 
-                    if(board.getSlotContent(x,y) != null){
-                        Tile tileToMove = board.getSlotContent(x,y);
-                        moveTile(tileToMove, getFinalSlotToMove(tileToMove, 2));
-                        /*
-                        Slot previousSlot;
-                        Slot nextSlot = new Slot(tileToMove.getX(), tileToMove.getY());
-                        //for direction DOWN = 2
-                        for(int i = y; i < NUM_ROWS; i++) {
-                            if (board.isSlotAvailable(x, i)) {
-                                previousSlot = nextSlot;
-                                nextSlot = new Slot(previousSlot.getX(), (previousSlot.getY() + 1));
-                            }
+                        if (finalSlot.getY() != tileToMove.getY()) {
+                            moved = true;
                         }
-
-                        moveTile(tileToMove, nextSlot);
-
-                         */
+                        moveTile(tileToMove, finalSlot);
                     }
-                }
 
+                }
             }
         }
 
         //for direction LEFT = 3
-        /*if (direction == 3) {
+        if (direction == 3) {
             for(int y = 0; y < NUM_ROWS; y++) {
                 for(int x = 0; x < NUM_COLUMNS; x++) {
 
                     if(board.getSlotContent(x,y) != null) {
                         Tile tileToMove = board.getSlotContent(x,y);
-                        moveTile(tileToMove, getFinalSlotToMove(tileToMove, 3));
+                        Slot finalSlot = getFinalSlotToMove(tileToMove, 3);
+                        if(finalSlot.getX() != tileToMove.getX()) {
+                            moved = true;
+                        }
+                        moveTile(tileToMove, finalSlot);
+
                     }
                 }
             }
         }
 
-         */
+        if(moved){
+            this.generateTile();
+        }
     }
 
 
@@ -152,7 +169,7 @@ public class GameEngine implements ILogic {
         }
 
         //for direction RIGHT = 1
-        /*if (direction == 1) {
+        if (direction == 1) {
 
             for(int i = tile.getX(); i < NUM_COLUMNS; i++) {
                 if (board.isSlotAvailable(i, tile.getY())) {
@@ -162,8 +179,6 @@ public class GameEngine implements ILogic {
             }
 
         }
-
-         */
 
         //for direction DOWN = 2
         if (direction == 2) {
@@ -178,7 +193,7 @@ public class GameEngine implements ILogic {
         }
 
         //for direction LEFT = 3
-        /*if (direction == 3) {
+        if (direction == 3) {
 
             for(int i = tile.getX(); i >= 0; i--) {
                 if (board.isSlotAvailable(i, tile.getY())) {
@@ -188,8 +203,6 @@ public class GameEngine implements ILogic {
             }
 
         }
-
-         */
 
         return nextSlot;
     }
@@ -208,11 +221,8 @@ public class GameEngine implements ILogic {
         }
     }
 
-    public static GameEngine getInstance() {
-        if(instance == null) {
-            instance = new GameEngine();
-        }
-        return instance;
+    public void setView(IView view) {
+        this.gameView = view;
     }
 
 }

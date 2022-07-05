@@ -8,6 +8,10 @@ public interface ILogic {
 
     public void initializeBoard();
 
+    public int getNumRows();
+
+    public int getNumColumns();
+
     public void generateTile();
 
     public void moveTile(Tile tile, Slot slot);
@@ -15,6 +19,8 @@ public interface ILogic {
     public void playerMove(int direction);
 
     public int getTileColor(int x, int y);
+
+    public void setView(IView view);
 
 
 }
