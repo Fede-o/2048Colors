@@ -22,8 +22,8 @@ public class colorPaletteView extends View  implements IView {
     int currentLevel;
     int[] colorPalette;
     int numColors;
-    int boxSize;
-    int boxMargin;
+    float boxSize;
+    float boxMargin;
     float paletteStartingX;
     float paletteStartingY;
     float paletteEndingX;
@@ -55,16 +55,17 @@ public class colorPaletteView extends View  implements IView {
 
     private void setElementsDimensions(int width, int height) {
 
+        boxSize = ((float)width / (float)numColors);
         boxMargin = boxSize / 7;
-        boxSize = width / (numColors + (boxMargin * 2));
+        boxSize = boxSize - (boxMargin);
 
-        int paletteMiddleX = (width / 2);
-        int paletteMiddleY = (height / 2);
+        float paletteMiddleX = ((float)width / 2);
+        float paletteMiddleY = ((float)height / 2);
 
-        paletteStartingX = (float)boxMargin;
-        paletteStartingY = (float) (paletteMiddleY - (boxSize / 2));
-        paletteEndingX = (float) (width - boxMargin);
-        paletteEndingY = (float) (paletteMiddleY + (boxSize / 2));
+        paletteStartingX = boxMargin;
+        paletteStartingY = (paletteMiddleY - (boxSize / 2));
+        paletteEndingX = (width - boxMargin);
+        paletteEndingY = (paletteMiddleY + (boxSize / 2));
 
     }
 
@@ -79,13 +80,13 @@ public class colorPaletteView extends View  implements IView {
     private void drawPalette(Canvas canvas) {
 
         for(int i = 0; i < numColors; i++) {
-            int boxStartX = (int) paletteStartingX + ((boxSize + boxMargin) * (i));
-            int boxEndX = boxStartX + boxSize;
-            int boxStartY = (int) paletteStartingY;
-            int boxEndY = (int) paletteEndingY;
+            float boxStartX = paletteStartingX + ((boxSize + boxMargin) * i);
+            float boxEndX = boxStartX + boxSize;
+            float boxStartY = paletteStartingY;
+            float boxEndY = paletteEndingY;
 
             paint.setColor(colorPalette[i]);
-            canvas.drawRoundRect((float) boxStartX, (float) boxStartY, (float) boxEndX, (float) boxEndY, (float) 10, (float) 10, paint);
+            canvas.drawRoundRect(boxStartX, boxStartY, boxEndX, boxEndY, (float) 20, (float) 20, paint);
         }
     }
     public int[] getColorPalette() {
