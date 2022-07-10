@@ -17,7 +17,6 @@ public class GameEngine implements ILogic {
 
     Board board = null;
     int currentLevel = 0;
-    int colorPalette;
     long score = 0;
     boolean isPlaying = false;
 
@@ -281,8 +280,6 @@ public class GameEngine implements ILogic {
 
 
 
-
-
     //sostituire il colore salvato nella tile con il codice colore e spostare i colori in un xml
     public int getTileColor(int x, int y) {
         //todo
@@ -294,6 +291,11 @@ public class GameEngine implements ILogic {
             return -1;
         }
     }
+
+    public int getCurrentLevel(){
+        return currentLevel;
+    }
+
 
     public void setView(IView view) {
         this.gameView = view;

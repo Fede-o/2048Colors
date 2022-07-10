@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="num_levels">6</integer>
+
+    <!-- NUMBER OF COLORS PER LEVEL-->
+    <integer-array name="numColorsLevels">
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+    </integer-array>
+
+    <!-- LEVELS COLOR PALETTE-->
+    <!--LEVEL 0-->
+    <array name="colorPalette_level0">
+        <item>#FF8F33</item>
+        <item>#FFCD36</item>
+        <item>#3ADE00</item>
+        <item>#1941FF</item>
+        <item>#FF3D2E</item>
+        <item>#B200FF</item>
+    </array>
+
+    <!--LEVEL 1-->
+    <array name="colorPalette_level1">
+        <item>#FF8F33</item>
+        <item>#FFCD36</item>
+        <item>#3ADE00</item>
+        <item>#1941FF</item>
+        <item>#FF3D2E</item>
+        <item>#B200FF</item>
+    </array>
+
+
+</resources>

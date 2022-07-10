@@ -20,6 +20,8 @@ public interface ILogic {
 
     public int getTileColor(int x, int y);
 
+    public int getCurrentLevel();
+
     public void setView(IView view);
 
 

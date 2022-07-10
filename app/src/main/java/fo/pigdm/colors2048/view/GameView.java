@@ -1,6 +1,8 @@
 package fo.pigdm.colors2048.view;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,13 +11,13 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import fo.pigdm.colors2048.logic.ILogic;
+import fo.pigdm.colors2048.R;
+
 
 
 public class GameView extends View implements IView {
 
     private static ILogic logic;
-
-
 
     int slotSize = 0;
     int boardMargin = 0;
@@ -26,6 +28,8 @@ public class GameView extends View implements IView {
     float boardWidth;
     float boardHeight;
     private final Paint paint = new Paint();
+    public int currentLevel;
+    public int[] colorPalette;
 
     float prevX, prevY;
 
@@ -39,7 +43,6 @@ public class GameView extends View implements IView {
     //CONSTRUCTOR FOR GENERATION OF VIEW FROM XML LAYOUT
     public GameView(Context context, AttributeSet attributes) {
         super(context, attributes);
-        //logic.newGame();
     }
 
     @Override
@@ -78,6 +81,8 @@ public class GameView extends View implements IView {
     }
 
     private void drawTiles(Canvas canvas) {
+        currentLevel = logic.getCurrentLevel();
+        colorPalette = getColorPalette();
         for (int y = 0; y < logic.getNumRows(); y++) {
             for (int x = 0; x < logic.getNumColumns(); x++) {
                 int slotStartX = (int) boardStartingX + boardMargin + ((slotSize + boardMargin) * x);
@@ -86,38 +91,10 @@ public class GameView extends View implements IView {
                 int slotEndY = slotStartY + slotSize;
 
                 int currentTileColor = logic.getTileColor(x, y);
-                //DA IMPLEMENTARE PALETTE COLORI LIVELLI
-                //todo
-                if (currentTileColor != -1) {
-                    switch(currentTileColor){
-                        case 0:
-                            paint.setColor(Color.RED);
-                            canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
-                            break;
 
-                        case 1:
-                            paint.setColor(Color.YELLOW);
-                            canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
-                            break;
-
-                        case 2:
-                            paint.setColor(Color.GREEN);
-                            canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
-                            break;
-                        case 3:
-                            paint.setColor(Color.CYAN);
-                            canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
-                            break;
-                        case 4:
-                            paint.setColor(Color.BLUE);
-                            canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
-                            break;
-                        default:
-                            paint.setColor(Color.BLACK);
-                            canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
-                            break;
-
-                    }
+                if (currentTileColor >= 0 && currentTileColor <colorPalette.length) {
+                    paint.setColor(colorPalette[currentTileColor]);
+                    canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
                 }
             }
         }
@@ -138,6 +115,28 @@ public class GameView extends View implements IView {
 
             }
         }
+    }
+
+    public int[] getColorPalette() {
+        int[] numColors = getResources().getIntArray(R.array.numColorsLevels);
+        int[] palette = new int[numColors[currentLevel]];
+        TypedArray paletteFromXml;
+
+        switch(currentLevel) {
+            case 0:
+                paletteFromXml = getResources().obtainTypedArray(R.array.colorPalette_level0);
+                for (int i = 0; i < paletteFromXml.length(); i++) {
+                    palette[i] = paletteFromXml.getColor(i, 0);
+                }
+                break;
+            case 1:
+                paletteFromXml = getResources().obtainTypedArray(R.array.colorPalette_level1);
+                for (int i = 0; i < paletteFromXml.length(); i++) {
+                    palette[i] = paletteFromXml.getColor(i, 0);
+                }
+                break;
+        }
+        return palette;
     }
 
     public void setLogic(ILogic logic) {

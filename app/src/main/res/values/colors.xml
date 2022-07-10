@@ -39,10 +39,6 @@
     <color name="md_theme_dark_onTertiary">#4F2500</color>
     <color name="md_theme_dark_tertiaryContainer">#703800</color>
     <color name="md_theme_dark_onTertiaryContainer">#FFDCC3</color>
-    <color name="md_theme_dark_error">#F2B8B5</color>
-    <color name="md_theme_dark_errorContainer">#8C1D18</color>
-    <color name="md_theme_dark_onError">#601410</color>
-    <color name="md_theme_dark_onErrorContainer">#F9DEDC</color>
     <color name="md_theme_dark_background">#1E1B16</color>
     <color name="md_theme_dark_onBackground">#E8E2D9</color>
     <color name="md_theme_dark_surface">#1E1B16</color>
@@ -55,4 +51,14 @@
     <color name="md_theme_dark_inversePrimary">#006491</color>
     <color name="md_theme_dark_shadow">#000000</color>
     <color name="md_theme_dark_primaryInverse">#006491</color>
+
+
+    <!-- LEVELS COLOR PALETTES-->
+    <!--LEVEL1-->
+    <color name="level_test_color1">#FF8F33</color>
+    <color name="level_test_color2">#FFCD36</color>
+    <color name="level_test_color3">#3ADE00</color>
+    <color name="level_test_color4">#1941FF</color>
+    <color name="level_test_color5">#FF3D2E</color>
+    <color name="level_test_color6">#B200FF</color>
 </resources>

@@ -26,8 +26,10 @@ public class GameActivity extends AppCompatActivity {
 
         ILogic gameEngine = new GameEngine();
         IView gameView = findViewById(R.id.gameView);
+        IView colorPaletteView = findViewById(R.id.colorPaletteView);
         gameEngine.setView(gameView);
         gameView.setLogic(gameEngine);
+        colorPaletteView.setLogic(gameEngine);
         gameEngine.newGame();
     }
 
