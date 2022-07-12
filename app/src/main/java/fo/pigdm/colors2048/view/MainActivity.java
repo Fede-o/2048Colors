@@ -23,7 +23,11 @@ public class MainActivity extends AppCompatActivity {
     public void startGameActivity(View view) {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
+    }
 
+    public void startSettingsActivity(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     private void hideSystemBars() {

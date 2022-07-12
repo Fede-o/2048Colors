@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">2048Colors</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="game_settings_header">Opzioni di gioco</string>
+    <string name="audio_header">Opzioni Audio</string>
+
+    <!-- Game Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="levels_title">Livello di gioco</string>
+
+    <!-- Audio Preferences -->
+    <string name="sfx_title">Effetti sonori di gioco</string>
+    <string name="music_title">Musica di sottofondo</string>
+    <string name="music_summary_on">Musica di sottofondo attiva nel gioco e nei menu</string>
+    <string name="music_summary_off">Musica di sottofondo disattivata</string>
 </resources>

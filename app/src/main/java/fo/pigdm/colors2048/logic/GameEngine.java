@@ -1,11 +1,15 @@
 package fo.pigdm.colors2048.logic;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
+
+import androidx.preference.PreferenceManager;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 
+import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.view.IView;
 
 public class GameEngine implements ILogic {
@@ -14,24 +18,27 @@ public class GameEngine implements ILogic {
     public final static int NUM_COLUMNS = 4;
 
     private static IView gameView;
+    private static IView colorPaletteView;
 
     Board board = null;
     int currentLevel = 0;
     long score = 0;
     boolean isPlaying = false;
+    int currentMaxColor = 0;
+    int numColors = 0;
 
 
     public GameEngine() {
-        newGame();
-        isPlaying = true;
-        score = 0;
 
     }
 
     public void newGame() {
+        numColors = gameView.getNumColors();
+
         board = new Board(NUM_COLUMNS, NUM_ROWS);
         initializeBoard();
-
+        isPlaying = true;
+        score = 0;
     }
 
     @Override
@@ -72,6 +79,7 @@ public class GameEngine implements ILogic {
         //trovare la posizione più lontana libera nella direzione
         //direction 0 = UP, 1 = RIGHT, 2 = DOWN, 3 = LEFT
         boolean moved = false;
+        int currentTileColor = 0;
 
         switch(direction) {
             //for direction UP = 0
@@ -86,12 +94,17 @@ public class GameEngine implements ILogic {
                             if(next != null && next.getColor() == tileToMove.getColor()){
                                 tileToMove = new Tile(tileToMove.getX(), tileToMove.getY(), tileToMove.getColor() + 1);
                                 board.removeTile(next);
+
+                                currentTileColor = tileToMove.getColor();
                             }
 
                             Slot finalSlot = getFinalSlotToMove(tileToMove, 0);
                             if(finalSlot.getY() != tileToMove.getY()) {
                                 moved = true;
                             }
+
+
+
                             moveTile(tileToMove, finalSlot);
                         }
                     }
@@ -110,12 +123,18 @@ public class GameEngine implements ILogic {
                             if(next != null && next.getColor() == tileToMove.getColor()){
                                 tileToMove = new Tile(tileToMove.getX(), tileToMove.getY(), tileToMove.getColor() + 1);
                                 board.removeTile(next);
+
+                                currentTileColor= tileToMove.getColor();
+
                             }
 
                             Slot finalSlot = getFinalSlotToMove(tileToMove, 1);
                             if (finalSlot.getX() != tileToMove.getX()) {
                                 moved = true;
                             }
+
+
+
                             moveTile(tileToMove, finalSlot);
                         }
                     }
@@ -134,6 +153,8 @@ public class GameEngine implements ILogic {
                             if(next != null && next.getColor() == tileToMove.getColor()){
                                 tileToMove = new Tile(tileToMove.getX(), tileToMove.getY(), tileToMove.getColor() + 1);
                                 board.removeTile(next);
+
+                                currentTileColor = tileToMove.getColor();
                             }
 
                             Slot finalSlot = getFinalSlotToMove(tileToMove, 2);
@@ -141,7 +162,9 @@ public class GameEngine implements ILogic {
                             if (finalSlot.getY() != tileToMove.getY()) {
                                 moved = true;
                             }
+
                             moveTile(tileToMove, finalSlot);
+
                         }
                     }
                 }
@@ -159,13 +182,17 @@ public class GameEngine implements ILogic {
                             if(next != null && next.getColor() == tileToMove.getColor()){
                                 tileToMove = new Tile(tileToMove.getX(), tileToMove.getY(), tileToMove.getColor() + 1);
                                 board.removeTile(next);
+
+                                currentTileColor = tileToMove.getColor();
                             }
 
                             Slot finalSlot = getFinalSlotToMove(tileToMove, 3);
                             if(finalSlot.getX() != tileToMove.getX()) {
                                 moved = true;
                             }
+
                             moveTile(tileToMove, finalSlot);
+
                         }
                     }
                 }
@@ -174,11 +201,21 @@ public class GameEngine implements ILogic {
 
         if(moved){
             this.generateTile();
+            gameView.updateView();
+
         }
+        if(currentTileColor > currentMaxColor){
+            currentMaxColor = currentTileColor;
+            colorPaletteView.updateView();
+        }
+        if(currentMaxColor == (numColors-1)){
+            isPlaying = false;
+        }
+
+
     }
 
     private Tile getNextTile(Tile tile, int direction) {
-        //todo
 
         switch(direction) {
             //for direction UP = 0
@@ -278,11 +315,7 @@ public class GameEngine implements ILogic {
         return nextSlot;
     }
 
-
-
-    //sostituire il colore salvato nella tile con il codice colore e spostare i colori in un xml
     public int getTileColor(int x, int y) {
-        //todo
         Tile tile = this.board.getSlotContent(x, y);
         if(tile != null){
             return tile.getColor();
@@ -292,13 +325,22 @@ public class GameEngine implements ILogic {
         }
     }
 
+
+    public void setCurrentLevel(int level) {
+        currentLevel = level;
+    }
+
     public int getCurrentLevel(){
         return currentLevel;
     }
 
+    public int getNextColor(){
+        return currentMaxColor + 1;
+    }
 
-    public void setView(IView view) {
-        this.gameView = view;
+    public void setView(IView gameV, IView colorPaletteV) {
+        this.gameView = gameV;
+        this.colorPaletteView = colorPaletteV;
     }
 
 }

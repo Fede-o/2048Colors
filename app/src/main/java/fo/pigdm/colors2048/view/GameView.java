@@ -28,8 +28,9 @@ public class GameView extends View implements IView {
     float boardWidth;
     float boardHeight;
     private final Paint paint = new Paint();
-    public int currentLevel;
-    public int[] colorPalette;
+    int currentLevel;
+    int[] colorPalette;
+    int numColors;
 
     float prevX, prevY;
 
@@ -118,8 +119,9 @@ public class GameView extends View implements IView {
     }
 
     public int[] getColorPalette() {
-        int[] numColors = getResources().getIntArray(R.array.numColorsLevels);
-        int[] palette = new int[numColors[currentLevel]];
+        int[] numColorsLevels = getResources().getIntArray(R.array.numColorsLevels);
+        numColors = numColorsLevels[currentLevel];
+        int[] palette = new int[numColors];
         TypedArray paletteFromXml;
 
         switch(currentLevel) {
@@ -137,6 +139,14 @@ public class GameView extends View implements IView {
                 break;
         }
         return palette;
+    }
+
+    public int getNumColors() {;
+        return numColors;
+    }
+
+    public void updateView() {
+        invalidate();
     }
 
     public void setLogic(ILogic logic) {
@@ -161,12 +171,12 @@ public class GameView extends View implements IView {
                     if(newX > prevX) {
                         //SWIPE RIGHT
                         logic.playerMove(1);
-                        invalidate();
+                        //invalidate();
 
                     }else{
                         //SWIPE LEFT
                         logic.playerMove(3);
-                        invalidate();
+                        //invalidate();
 
                     }
                 }else{
@@ -174,12 +184,12 @@ public class GameView extends View implements IView {
                     if(newY < prevY) {
                         //SWIPE UP
                         logic.playerMove(0);
-                        invalidate();
+                        //invalidate();
 
                     }else{
                         //SWIPE DOWN
                         logic.playerMove(2);
-                        invalidate();
+                        //invalidate();
 
                     }
                 }

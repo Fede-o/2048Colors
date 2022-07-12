@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
@@ -28,6 +29,12 @@ public class colorPaletteView extends View  implements IView {
     float paletteStartingY;
     float paletteEndingX;
     float paletteEndingY;
+    float paletteAreaHeight;
+    float nextColorAreaHeight;
+    float textX;
+    float textY;
+    float nextColorX;
+    float nextColorY;
     int viewWidth;
     int viewHeight;
     private final Paint paint = new Paint();
@@ -53,19 +60,30 @@ public class colorPaletteView extends View  implements IView {
 
     }
 
-    private void setElementsDimensions(int width, int height) {
+    private void setElementsDimensions(float width, float height) {
 
-        boxSize = ((float)width / (float)numColors);
+        paletteAreaHeight = (height / 3) * 2;
+        nextColorAreaHeight = height / 3;
+
+        boxSize = width / (float)numColors;
         boxMargin = boxSize / 7;
         boxSize = boxSize - (boxMargin);
 
-        float paletteMiddleX = ((float)width / 2);
-        float paletteMiddleY = ((float)height / 2);
+
+
+        float paletteMiddleX = width / 2;
+        float paletteMiddleY = paletteAreaHeight / 2;
 
         paletteStartingX = boxMargin;
-        paletteStartingY = (paletteMiddleY - (boxSize / 2));
-        paletteEndingX = (width - boxMargin);
-        paletteEndingY = (paletteMiddleY + (boxSize / 2));
+        paletteStartingY = paletteMiddleY - (boxSize / 2);
+        paletteEndingX = width - boxMargin;
+        paletteEndingY = paletteMiddleY + (boxSize / 2);
+
+        float nextColorAreaMiddleY = paletteAreaHeight + (nextColorAreaHeight / 2);
+        textX = ((width / 3) * 2) - 50;
+        textY = nextColorAreaMiddleY;
+        nextColorX = ((width / 3) * 2) + 50;
+        nextColorY = nextColorAreaMiddleY;
 
     }
 
@@ -75,6 +93,19 @@ public class colorPaletteView extends View  implements IView {
         colorPalette = getColorPalette();
         this.setElementsDimensions(viewWidth, viewHeight);
         drawPalette(canvas);
+
+        paint.setTextAlign(Paint.Align.RIGHT);
+        paint.setTextSize(50);
+        paint.setColor(Color.BLACK);
+        canvas.drawText("PROSSIMO COLORE:",textX, textY, paint);
+
+        float boxStartX = nextColorX;
+        float boxEndX = nextColorX + boxSize;
+        float boxStartY = nextColorY - (boxSize / 2);
+        float boxEndY = nextColorY + (boxSize / 2);
+
+        paint.setColor(colorPalette[logic.getNextColor()]);
+        canvas.drawRoundRect(boxStartX, boxStartY, boxEndX, boxEndY, (float) 20, (float) 20, paint);
     }
 
     private void drawPalette(Canvas canvas) {
@@ -110,6 +141,14 @@ public class colorPaletteView extends View  implements IView {
                 break;
         }
         return palette;
+    }
+
+    public int getNumColors() {;
+        return numColors;
+    }
+
+    public void updateView() {
+        invalidate();
     }
 
     @Override

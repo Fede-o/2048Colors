@@ -1,0 +1,20 @@
+<resources>
+    <!-- levels Preference -->
+    <string-array name="levels_entries">
+        <item>LIVELLO 1</item>
+        <item>LIVELLO 2</item>
+        <item>LIVELLO 3</item>
+        <item>LIVELLO 4</item>
+        <item>LIVELLO 5</item>
+        <item>LIVELLO 6</item>
+    </string-array>
+
+    <string-array name="levels_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+</resources>

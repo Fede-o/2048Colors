@@ -20,9 +20,13 @@ public interface ILogic {
 
     public int getTileColor(int x, int y);
 
+    public void setCurrentLevel(int level);
+
     public int getCurrentLevel();
 
-    public void setView(IView view);
+    public int getNextColor();
+
+    public void setView(IView gameV, IView colorPaletteV);
 
 
 }

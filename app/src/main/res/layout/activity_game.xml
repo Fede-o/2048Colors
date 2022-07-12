@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="top"
-        android:layout_weight="1">
+        android:layout_weight="3">
 
         <TextView
             android:id="@+id/textView"
@@ -58,7 +58,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.32" />
 
         <fo.pigdm.colors2048.view.colorPaletteView
             android:id="@+id/colorPaletteView"
@@ -155,6 +156,6 @@
         android:id="@+id/gameView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="5"
         android:layout_gravity="bottom" />
 </LinearLayout>

@@ -26,12 +26,13 @@
 
     <!--LEVEL 1-->
     <array name="colorPalette_level1">
-        <item>#FF8F33</item>
-        <item>#FFCD36</item>
-        <item>#3ADE00</item>
-        <item>#1941FF</item>
-        <item>#FF3D2E</item>
-        <item>#B200FF</item>
+        <item>#FFEF5E</item>
+        <item>#FFA200</item>
+        <item>#FF6230</item>
+        <item>#FF3223</item>
+        <item>#D50101</item>
+        <item>#880000</item>
+        <item>#610000</item>
     </array>
 
 
