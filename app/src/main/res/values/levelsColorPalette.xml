@@ -14,14 +14,17 @@
     </integer-array>
 
     <!-- LEVELS COLOR PALETTE-->
-    <!--LEVEL 0-->
-    <array name="colorPalette_level0">
+    <!--GLOBAL COLOR PALETTE-->
+    <array name="colorPalette">
         <item>#FF8F33</item>
         <item>#FFCD36</item>
         <item>#3ADE00</item>
         <item>#1941FF</item>
         <item>#FF3D2E</item>
         <item>#B200FF</item>
+        <item>#D50101</item>
+        <item>#880000</item>
+        <item>#610000</item>
     </array>
 
     <!--LEVEL 1-->

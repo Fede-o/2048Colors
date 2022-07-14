@@ -20,8 +20,6 @@
 
         <SwitchPreferenceCompat
             app:key="background_music"
-            app:summaryOff="@string/music_summary_off"
-            app:summaryOn="@string/music_summary_on"
             app:title="@string/music_title" />
 
     </PreferenceCategory>

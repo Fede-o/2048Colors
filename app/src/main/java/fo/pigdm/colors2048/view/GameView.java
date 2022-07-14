@@ -1,7 +1,6 @@
 package fo.pigdm.colors2048.view;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,7 +16,11 @@ import fo.pigdm.colors2048.R;
 
 public class GameView extends View implements IView {
 
-    private static ILogic logic;
+    public ILogic logic;
+
+    private IView paletteView;
+
+    private OnGameWonListener mListener;
 
     int slotSize = 0;
     int boardMargin = 0;
@@ -34,11 +37,9 @@ public class GameView extends View implements IView {
 
     float prevX, prevY;
 
-    //forme
 
     public GameView(Context context) {
         super(context);
-        //logic.newGame();
     }
 
     //CONSTRUCTOR FOR GENERATION OF VIEW FROM XML LAYOUT
@@ -77,12 +78,13 @@ public class GameView extends View implements IView {
 
     @Override
     public void onDraw(Canvas canvas) {
+        currentLevel = logic.getCurrentLevel();
         drawBoardAndSlots(canvas);
         drawTiles(canvas);
     }
 
     private void drawTiles(Canvas canvas) {
-        currentLevel = logic.getCurrentLevel();
+
         colorPalette = getColorPalette();
         for (int y = 0; y < logic.getNumRows(); y++) {
             for (int x = 0; x < logic.getNumColumns(); x++) {
@@ -119,30 +121,11 @@ public class GameView extends View implements IView {
     }
 
     public int[] getColorPalette() {
-        int[] numColorsLevels = getResources().getIntArray(R.array.numColorsLevels);
-        numColors = numColorsLevels[currentLevel];
-        int[] palette = new int[numColors];
-        TypedArray paletteFromXml;
-
-        switch(currentLevel) {
-            case 0:
-                paletteFromXml = getResources().obtainTypedArray(R.array.colorPalette_level0);
-                for (int i = 0; i < paletteFromXml.length(); i++) {
-                    palette[i] = paletteFromXml.getColor(i, 0);
-                }
-                break;
-            case 1:
-                paletteFromXml = getResources().obtainTypedArray(R.array.colorPalette_level1);
-                for (int i = 0; i < paletteFromXml.length(); i++) {
-                    palette[i] = paletteFromXml.getColor(i, 0);
-                }
-                break;
-        }
-        return palette;
+        return paletteView.getColorPalette();
     }
 
-    public int getNumColors() {;
-        return numColors;
+    public int getNumColors() {
+        return paletteView.getNumColors();
     }
 
     public void updateView() {
@@ -151,6 +134,18 @@ public class GameView extends View implements IView {
 
     public void setLogic(ILogic logic) {
         this.logic = logic;
+    }
+
+    public void setView(IView view){
+        this.paletteView = view;
+    }
+
+    public void setOnGameWonListener(OnGameWonListener listener){
+        mListener = listener;
+    }
+
+    public void gameWon(){
+        mListener.onGameWon();
     }
 
     @Override

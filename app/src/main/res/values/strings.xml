@@ -15,4 +15,11 @@
     <string name="music_title">Musica di sottofondo</string>
     <string name="music_summary_on">Musica di sottofondo attiva nel gioco e nei menu</string>
     <string name="music_summary_off">Musica di sottofondo disattivata</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="game_win_message">Complimenti, hai superato il livello. Vuoi giocare al prossimo livello o tornare al menu principale?</string>
+    <string name="game_win_title">LIVELLO SUPERATO!</string>
+    <string name="menu_option">MENU PRINCIPALE</string>
+    <string name="next_option">PROSSIMO LIVELLO</string>
 </resources>

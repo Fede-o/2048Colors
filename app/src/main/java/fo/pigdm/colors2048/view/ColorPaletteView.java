@@ -16,9 +16,10 @@ import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.logic.ILogic;
 import fo.pigdm.colors2048.view.GameView;
 
-public class colorPaletteView extends View  implements IView {
+public class ColorPaletteView extends View  implements IView {
 
     private static ILogic logic;
+    private static IView gameView;
 
     int currentLevel;
     int[] colorPalette;
@@ -40,12 +41,12 @@ public class colorPaletteView extends View  implements IView {
     private final Paint paint = new Paint();
 
 
-    public colorPaletteView(Context context) {
+    public ColorPaletteView(Context context) {
         super(context);
     }
 
     //CONSTRUCTOR FOR GENERATION OF VIEW FROM XML LAYOUT
-    public colorPaletteView(Context context, AttributeSet attributes) {
+    public ColorPaletteView(Context context, AttributeSet attributes) {
         super(context, attributes);
     }
 
@@ -55,8 +56,6 @@ public class colorPaletteView extends View  implements IView {
 
         viewWidth = this.getWidth();
         viewHeight = this.getHeight();
-
-
 
     }
 
@@ -89,23 +88,25 @@ public class colorPaletteView extends View  implements IView {
 
     @Override
     public void onDraw(Canvas canvas) {
-        currentLevel = logic.getCurrentLevel();
-        colorPalette = getColorPalette();
-        this.setElementsDimensions(viewWidth, viewHeight);
-        drawPalette(canvas);
+        if(logic.getGameState() == 1) {
+            currentLevel = logic.getCurrentLevel();
+            colorPalette = getColorPalette();
+            this.setElementsDimensions(viewWidth, viewHeight);
+            drawPalette(canvas);
 
-        paint.setTextAlign(Paint.Align.RIGHT);
-        paint.setTextSize(50);
-        paint.setColor(Color.BLACK);
-        canvas.drawText("PROSSIMO COLORE:",textX, textY, paint);
+            paint.setTextAlign(Paint.Align.RIGHT);
+            paint.setTextSize(50);
+            paint.setColor(Color.BLACK);
+            canvas.drawText("PROSSIMO COLORE:", textX, textY, paint);
 
-        float boxStartX = nextColorX;
-        float boxEndX = nextColorX + boxSize;
-        float boxStartY = nextColorY - (boxSize / 2);
-        float boxEndY = nextColorY + (boxSize / 2);
+            float boxStartX = nextColorX;
+            float boxEndX = nextColorX + boxSize;
+            float boxStartY = nextColorY - (boxSize / 2);
+            float boxEndY = nextColorY + (boxSize / 2);
 
-        paint.setColor(colorPalette[logic.getNextColor()]);
-        canvas.drawRoundRect(boxStartX, boxStartY, boxEndX, boxEndY, (float) 20, (float) 20, paint);
+            paint.setColor(colorPalette[logic.getNextColor()]);
+            canvas.drawRoundRect(boxStartX, boxStartY, boxEndX, boxEndY, (float) 20, (float) 20, paint);
+        }
     }
 
     private void drawPalette(Canvas canvas) {
@@ -120,12 +121,13 @@ public class colorPaletteView extends View  implements IView {
             canvas.drawRoundRect(boxStartX, boxStartY, boxEndX, boxEndY, (float) 20, (float) 20, paint);
         }
     }
+
     public int[] getColorPalette() {
-        int[] numColorsLevels = getResources().getIntArray(R.array.numColorsLevels);
-        numColors = numColorsLevels[currentLevel];
+        numColors = getNumColors();
         int[] palette = new int[numColors];
         TypedArray paletteFromXml;
-
+        /*
+        //old code using multiple color palette
         switch(currentLevel) {
             case 0:
                 paletteFromXml = getResources().obtainTypedArray(R.array.colorPalette_level0);
@@ -140,11 +142,20 @@ public class colorPaletteView extends View  implements IView {
                 }
                 break;
         }
+        */
+
+        //retrieve the first i colors of the global palette based on the current level
+        paletteFromXml = getResources().obtainTypedArray(R.array.colorPalette);
+        for (int i = 0; i < numColors; i++) {
+            palette[i] = paletteFromXml.getColor(i, 0);
+        }
         return palette;
     }
 
-    public int getNumColors() {;
-        return numColors;
+    public int getNumColors() {
+        int[] numColorsLevels = getResources().getIntArray(R.array.numColorsLevels);
+        int numC = numColorsLevels[logic.getCurrentLevel()];
+        return numC;
     }
 
     public void updateView() {
@@ -152,7 +163,21 @@ public class colorPaletteView extends View  implements IView {
     }
 
     @Override
+    public void gameWon() {
+        //do nothing
+    }
+
+    @Override
+    public void setOnGameWonListener(OnGameWonListener listener) {
+        //do nothing
+    }
+
+    @Override
     public void setLogic(ILogic logic) {
         this.logic = logic;
+    }
+
+    public void setView(IView view){
+        this.gameView = view;
     }
 }

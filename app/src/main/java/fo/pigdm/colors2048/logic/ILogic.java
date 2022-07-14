@@ -26,6 +26,8 @@ public interface ILogic {
 
     public int getNextColor();
 
+    public int getGameState();
+
     public void setView(IView gameV, IView colorPaletteV);
 
 

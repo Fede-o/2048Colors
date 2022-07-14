@@ -6,8 +6,16 @@ public interface IView {
 
     public int getNumColors();
 
+    public int[] getColorPalette();
+
     public void updateView();
 
+    public void gameWon();
+
+    public void setOnGameWonListener(OnGameWonListener listener);
+
     public void setLogic(ILogic logic);
+
+    public void setView(IView view);
 
 }
