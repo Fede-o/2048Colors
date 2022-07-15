@@ -8,7 +8,8 @@
             app:entryValues="@array/levels_values"
             app:key="level"
             app:title="@string/levels_title"
-            app:useSimpleSummaryProvider="true" />
+            app:useSimpleSummaryProvider="true"
+            app:isPreferenceVisible="false"/>
 
     </PreferenceCategory>
 

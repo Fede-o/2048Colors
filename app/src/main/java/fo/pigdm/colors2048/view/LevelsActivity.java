@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,14 @@ public class LevelsActivity extends AppCompatActivity {
         }
 
         LevelAdapter levelAdapter = new LevelAdapter(this, levelDetailsArrayList);
+        levelAdapter.setOnLevelSelectedListener(
+                new OnLevelSelectedListener() {
+                    @Override
+                    public void onLevelClick(View itemView, int position) {
+                        //impostare livello in sharedPreferences
+                    }
+                }
+        );
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 

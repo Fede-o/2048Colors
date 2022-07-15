@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2945" />
+        <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/drawable/background_item_selcted.xml" value="0.226" />
         <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2945" />
         <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/drawable/ic_logo_2048.xml" value="0.5475" />
         <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/layout-land/activity_main.xml" value="0.4691358024691358" />
@@ -13,6 +14,7 @@
         <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/layout/fragment_game_win_dialog.xml" value="0.22407407407407406" />
         <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/layout/level_card_layout.xml" value="0.25" />
+        <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/layout/level_card_layout2.xml" value="0.15273556231003038" />
         <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/layout/settings_activity.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Federico/Documents/AndroidStudioProjects/2048Colors2/app/src/main/res/xml/root_preferences.xml" value="0.44814814814814813" />
       </map>
