@@ -17,4 +17,14 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+
+    <string-array name="levels_descriptions">
+        <item>Livello di base\nDimensione Palette: 6 Colori</item>
+        <item>Dimensione Palette: 7 Colori</item>
+        <item>Dimensione Palette: 8 Colori</item>
+        <item>Dimensione Palette: 9 Colori</item>
+        <item>Dimensione Palette: 10 Colori</item>
+        <item>Dimensione Palette: 11 Colori</item>
+    </string-array>
+
 </resources>

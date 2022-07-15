@@ -1,4 +1,4 @@
-package fo.pigdm.colors2048.view;
+package fo.pigdm.colors2048.view.gameDialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,10 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fo.pigdm.colors2048.R;
+import fo.pigdm.colors2048.view.MainActivity;
 
-public class GameWinDialogFragment extends DialogFragment {
+public class GameOverDialogFragment extends DialogFragment {
 
-    public GameWinDialogFragment() {
+    public GameOverDialogFragment() {
 
     }
 
@@ -32,16 +33,16 @@ public class GameWinDialogFragment extends DialogFragment {
         Bundle result = new Bundle();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.game_win_message).setTitle(R.string.game_win_title);
+        builder.setMessage(R.string.game_over_message).setTitle(R.string.game_over_title);
         builder.setPositiveButton(
-                R.string.next_option,
+                R.string.retry_option,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked next level button
                         //GameView.logic.setCurrentLevel(GameView.logic.getCurrentLevel() + 1);
                         //GameView.logic.newGame();
-                        result.putString("response", "NEXT");
-                        getParentFragmentManager().setFragmentResult("getUserAction", result);
+                        result.putString("lostResponse", "RETRY");
+                        getParentFragmentManager().setFragmentResult("onGameOverUserAction", result);
                     }
                 });
 

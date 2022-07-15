@@ -28,6 +28,8 @@ public interface ILogic {
 
     public int getGameState();
 
+    public long getScore();
+
     public void setView(IView gameV, IView colorPaletteV);
 
 

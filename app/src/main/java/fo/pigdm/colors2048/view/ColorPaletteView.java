@@ -1,6 +1,5 @@
 package fo.pigdm.colors2048.view;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -8,13 +7,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Gallery;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.logic.ILogic;
-import fo.pigdm.colors2048.view.GameView;
+import fo.pigdm.colors2048.view.gameDialogs.OnGameOverListener;
+import fo.pigdm.colors2048.view.gameDialogs.OnGameWonListener;
 
 public class ColorPaletteView extends View  implements IView {
 
@@ -23,7 +20,7 @@ public class ColorPaletteView extends View  implements IView {
 
     int currentLevel;
     int[] colorPalette;
-    int numColors;
+    //int numColors;
     float boxSize;
     float boxMargin;
     float paletteStartingX;
@@ -60,15 +57,14 @@ public class ColorPaletteView extends View  implements IView {
     }
 
     private void setElementsDimensions(float width, float height) {
+        int numColors = getNumColors();
 
-        paletteAreaHeight = (height / 3) * 2;
-        nextColorAreaHeight = height / 3;
+        paletteAreaHeight = height / 2;
+        nextColorAreaHeight = height / 2;
 
         boxSize = width / (float)numColors;
         boxMargin = boxSize / 7;
         boxSize = boxSize - (boxMargin);
-
-
 
         float paletteMiddleX = width / 2;
         float paletteMiddleY = paletteAreaHeight / 2;
@@ -88,7 +84,6 @@ public class ColorPaletteView extends View  implements IView {
 
     @Override
     public void onDraw(Canvas canvas) {
-        if(logic.getGameState() == 1) {
             currentLevel = logic.getCurrentLevel();
             colorPalette = getColorPalette();
             this.setElementsDimensions(viewWidth, viewHeight);
@@ -107,9 +102,9 @@ public class ColorPaletteView extends View  implements IView {
             paint.setColor(colorPalette[logic.getNextColor()]);
             canvas.drawRoundRect(boxStartX, boxStartY, boxEndX, boxEndY, (float) 20, (float) 20, paint);
         }
-    }
 
     private void drawPalette(Canvas canvas) {
+        int numColors = getNumColors();
 
         for(int i = 0; i < numColors; i++) {
             float boxStartX = paletteStartingX + ((boxSize + boxMargin) * i);
@@ -123,7 +118,7 @@ public class ColorPaletteView extends View  implements IView {
     }
 
     public int[] getColorPalette() {
-        numColors = getNumColors();
+        int numColors = getNumColors();
         int[] palette = new int[numColors];
         TypedArray paletteFromXml;
         /*
@@ -168,7 +163,17 @@ public class ColorPaletteView extends View  implements IView {
     }
 
     @Override
+    public void gameOver() {
+        //do nothing
+    }
+
+    @Override
     public void setOnGameWonListener(OnGameWonListener listener) {
+        //do nothing
+    }
+
+    @Override
+    public void setOnGameOverListener(OnGameOverListener listener) {
         //do nothing
     }
 

@@ -30,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void startLevelsActivity(View view) {
+        Intent intent = new Intent(this, LevelsActivity.class);
+        startActivity(intent);
+    }
+
     private void hideSystemBars() {
         WindowInsetsControllerCompat windowInsetsController = ViewCompat.getWindowInsetsController(getWindow().getDecorView());
         if (windowInsetsController == null) {

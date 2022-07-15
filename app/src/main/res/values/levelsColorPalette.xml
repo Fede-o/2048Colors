@@ -27,7 +27,7 @@
         <item>#610000</item>
     </array>
 
-    <!--LEVEL 1-->
+    <!--LEVEL 1
     <array name="colorPalette_level1">
         <item>#FFEF5E</item>
         <item>#FFA200</item>
@@ -37,6 +37,6 @@
         <item>#880000</item>
         <item>#610000</item>
     </array>
-
+-->
 
 </resources>

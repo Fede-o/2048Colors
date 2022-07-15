@@ -5,18 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.preference.PreferenceManager;
 
-import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MotionEvent;
+import android.view.View;
 
 import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.logic.GameEngine;
 import fo.pigdm.colors2048.logic.ILogic;
+import fo.pigdm.colors2048.view.gameDialogs.GameOverDialogFragment;
+import fo.pigdm.colors2048.view.gameDialogs.GameWinDialogFragment;
+import fo.pigdm.colors2048.view.gameDialogs.OnGameOverListener;
+import fo.pigdm.colors2048.view.gameDialogs.OnGameWonListener;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -26,7 +29,10 @@ public class GameActivity extends AppCompatActivity {
     IView gameView;
     IView colorPaletteView;
 
-
+    public void startMainActivity(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     public void readSavedSettings() {
         SharedPreferences gameSettings = PreferenceManager.getDefaultSharedPreferences(this);
@@ -36,6 +42,11 @@ public class GameActivity extends AppCompatActivity {
     public void showWinnerDialog() {
         GameWinDialogFragment gameWinDialog = new GameWinDialogFragment();
         gameWinDialog.show(getSupportFragmentManager(), "game_win");
+    }
+
+    public void showGameOverDialog() {
+        GameOverDialogFragment gameOverDialog = new GameOverDialogFragment();
+        gameOverDialog.show(getSupportFragmentManager(), "game_over");
     }
 
 
@@ -83,15 +94,23 @@ public class GameActivity extends AppCompatActivity {
                     }
                 });
 
+        gameView.setOnGameOverListener(
+                new OnGameOverListener() {
+                    @Override
+                    public void onGameOver() {
+                        showGameOverDialog();
+                    }
+                });
+
         colorPaletteView.setLogic(gameEngine);
 
         gameEngine.newGame();
 
-        getSupportFragmentManager().setFragmentResultListener("getUserAction", this, new FragmentResultListener() {
+        getSupportFragmentManager().setFragmentResultListener("onGameWonUserAction", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
-                // We use a String here, but any type that can be put in a Bundle is supported
-                String result = bundle.getString("response");
+
+                String result = bundle.getString("wonResponse");
                 if (result.equals("NEXT")){
                     gameEngine.setCurrentLevel(gameEngine.getCurrentLevel() + 1);
                     gameEngine.newGame();
@@ -101,7 +120,22 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        getSupportFragmentManager().setFragmentResultListener("onGameOverUserAction", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+
+                String result = bundle.getString("lostResponse");
+                if (result.equals("RETRY")){
+                    gameEngine.newGame();
+                    gameView.updateView();
+                    colorPaletteView.updateView();
+                }
+            }
+        });
+
     }
+
+
 
 
 

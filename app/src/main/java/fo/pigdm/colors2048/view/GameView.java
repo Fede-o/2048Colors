@@ -1,17 +1,18 @@
 package fo.pigdm.colors2048.view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import fo.pigdm.colors2048.logic.ILogic;
 import fo.pigdm.colors2048.R;
-
+import fo.pigdm.colors2048.view.gameDialogs.OnGameOverListener;
+import fo.pigdm.colors2048.view.gameDialogs.OnGameWonListener;
 
 
 public class GameView extends View implements IView {
@@ -20,7 +21,8 @@ public class GameView extends View implements IView {
 
     private IView paletteView;
 
-    private OnGameWonListener mListener;
+    private OnGameWonListener gameWonListener;
+    private OnGameOverListener gameOverListener;
 
     int slotSize = 0;
     int boardMargin = 0;
@@ -132,6 +134,14 @@ public class GameView extends View implements IView {
         invalidate();
     }
 
+    public void updateScore(){
+        TextView scoreText = findViewById(R.id.score);
+
+        CharSequence score = String.valueOf(logic.getScore());
+
+        scoreText.setText(score);
+    }
+
     public void setLogic(ILogic logic) {
         this.logic = logic;
     }
@@ -141,11 +151,19 @@ public class GameView extends View implements IView {
     }
 
     public void setOnGameWonListener(OnGameWonListener listener){
-        mListener = listener;
+        gameWonListener = listener;
+    }
+
+    public void setOnGameOverListener(OnGameOverListener listener) {
+        gameOverListener = listener;
     }
 
     public void gameWon(){
-        mListener.onGameWon();
+        gameWonListener.onGameWon();
+    }
+
+    public void gameOver(){
+        gameOverListener.onGameOver();
     }
 
     @Override
