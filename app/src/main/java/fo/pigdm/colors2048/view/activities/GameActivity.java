@@ -1,4 +1,4 @@
-package fo.pigdm.colors2048.view;
+package fo.pigdm.colors2048.view.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,8 @@ import android.view.View;
 import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.logic.GameEngine;
 import fo.pigdm.colors2048.logic.ILogic;
+import fo.pigdm.colors2048.view.IView;
+import fo.pigdm.colors2048.utils.SoundPlayer;
 import fo.pigdm.colors2048.view.gameDialogs.GameOverDialogFragment;
 import fo.pigdm.colors2048.view.gameDialogs.GameWinDialogFragment;
 import fo.pigdm.colors2048.view.gameDialogs.OnGameOverListener;
@@ -49,11 +51,13 @@ public class GameActivity extends AppCompatActivity {
 
     public void showWinnerDialog() {
         GameWinDialogFragment gameWinDialog = new GameWinDialogFragment();
+        gameWinDialog.setCancelable(false);
         gameWinDialog.show(getSupportFragmentManager(), "game_win");
     }
 
     public void showGameOverDialog() {
         GameOverDialogFragment gameOverDialog = new GameOverDialogFragment();
+        gameOverDialog.setCancelable(false);
         gameOverDialog.show(getSupportFragmentManager(), "game_over");
     }
 

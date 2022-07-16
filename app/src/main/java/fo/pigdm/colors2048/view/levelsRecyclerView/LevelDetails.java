@@ -1,8 +1,4 @@
-package fo.pigdm.colors2048.view.levelsView;
-
-import android.content.res.Resources;
-
-import fo.pigdm.colors2048.R;
+package fo.pigdm.colors2048.view.levelsRecyclerView;
 
 public class LevelDetails {
 

@@ -1,4 +1,4 @@
-package fo.pigdm.colors2048.view;
+package fo.pigdm.colors2048.view.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;

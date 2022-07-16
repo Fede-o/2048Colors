@@ -1,4 +1,4 @@
-package fo.pigdm.colors2048.view;
+package fo.pigdm.colors2048.view.activities;
 
 import android.os.Bundle;
 

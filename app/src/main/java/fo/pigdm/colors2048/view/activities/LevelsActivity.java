@@ -1,4 +1,4 @@
-package fo.pigdm.colors2048.view;
+package fo.pigdm.colors2048.view.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,16 +7,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 
 import java.util.ArrayList;
 
 import fo.pigdm.colors2048.R;
-import fo.pigdm.colors2048.view.levelsView.LevelAdapter;
-import fo.pigdm.colors2048.view.levelsView.LevelDetails;
-import fo.pigdm.colors2048.view.levelsView.OnLevelSelectedListener;
+import fo.pigdm.colors2048.view.levelsRecyclerView.LevelAdapter;
+import fo.pigdm.colors2048.view.levelsRecyclerView.LevelDetails;
+import fo.pigdm.colors2048.view.levelsRecyclerView.OnLevelSelectedListener;
 
 public class LevelsActivity extends AppCompatActivity {
 

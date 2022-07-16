@@ -1,4 +1,4 @@
-package fo.pigdm.colors2048.view.levelsView;
+package fo.pigdm.colors2048.view.levelsRecyclerView;
 
 import android.view.View;
 

@@ -1,4 +1,4 @@
-package fo.pigdm.colors2048.view;
+package fo.pigdm.colors2048.utils;
 
 import android.content.Context;
 import android.media.AudioAttributes;
