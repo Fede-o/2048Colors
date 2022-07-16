@@ -6,14 +6,17 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 
 import java.util.ArrayList;
 
 import fo.pigdm.colors2048.R;
+import fo.pigdm.colors2048.view.levelsView.LevelAdapter;
+import fo.pigdm.colors2048.view.levelsView.LevelDetails;
+import fo.pigdm.colors2048.view.levelsView.OnLevelSelectedListener;
 
 public class LevelsActivity extends AppCompatActivity {
 
@@ -38,10 +41,12 @@ public class LevelsActivity extends AppCompatActivity {
 
         String[] levelNames = getResources().getStringArray(R.array.levels_entries);
         String[] levelDesc = getResources().getStringArray(R.array.levels_descriptions);
+        String[] levelPalettePreview = getResources().getStringArray(R.array.level_preview_image);
 
         for (int i = 0; i < numColorsLevels.length; i++) {
+            int src = getResources().getIdentifier(levelPalettePreview[i], "drawable", getPackageName());
             levelDetailsArrayList.add(
-                    new LevelDetails(levelNames[i], levelDesc[i], R.color.level_test_color5)
+                    new LevelDetails(levelNames[i], levelDesc[i], src)
             );
         }
 

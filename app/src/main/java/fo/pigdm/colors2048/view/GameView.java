@@ -13,6 +13,8 @@ import fo.pigdm.colors2048.logic.ILogic;
 import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.view.gameDialogs.OnGameOverListener;
 import fo.pigdm.colors2048.view.gameDialogs.OnGameWonListener;
+import fo.pigdm.colors2048.view.gameDialogs.OnTileMergeListener;
+import fo.pigdm.colors2048.view.gameDialogs.OnTileMoveListener;
 
 
 public class GameView extends View implements IView {
@@ -23,6 +25,8 @@ public class GameView extends View implements IView {
 
     private OnGameWonListener gameWonListener;
     private OnGameOverListener gameOverListener;
+    private OnTileMoveListener tileMoveListener;
+    private OnTileMergeListener tileMergeListener;
 
     int slotSize = 0;
     int boardMargin = 0;
@@ -158,6 +162,12 @@ public class GameView extends View implements IView {
         gameOverListener = listener;
     }
 
+    public void setOnTileMoveListener(OnTileMoveListener listener) {
+        tileMoveListener = listener;
+    }
+
+    public void setOnTileMergeListener(OnTileMergeListener listener) {tileMergeListener = listener;}
+
     public void gameWon(){
         gameWonListener.onGameWon();
     }
@@ -165,6 +175,10 @@ public class GameView extends View implements IView {
     public void gameOver(){
         gameOverListener.onGameOver();
     }
+
+    public void tileMove() {tileMoveListener.onTileMove();}
+
+    public void tileMerge() {tileMergeListener.onTileMerge();}
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {

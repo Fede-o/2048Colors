@@ -1,8 +1,7 @@
-package fo.pigdm.colors2048.view;
+package fo.pigdm.colors2048.view.levelsView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
-import androidx.recyclerview.selection.ItemDetailsLookup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;

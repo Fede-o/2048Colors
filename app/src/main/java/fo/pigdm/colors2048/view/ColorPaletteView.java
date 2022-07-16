@@ -13,6 +13,8 @@ import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.logic.ILogic;
 import fo.pigdm.colors2048.view.gameDialogs.OnGameOverListener;
 import fo.pigdm.colors2048.view.gameDialogs.OnGameWonListener;
+import fo.pigdm.colors2048.view.gameDialogs.OnTileMergeListener;
+import fo.pigdm.colors2048.view.gameDialogs.OnTileMoveListener;
 
 public class ColorPaletteView extends View  implements IView {
 
@@ -159,12 +161,32 @@ public class ColorPaletteView extends View  implements IView {
     }
 
     @Override
+    public void tileMove() {
+        //do nothing
+    }
+
+    @Override
+    public void tileMerge() {
+        //do nothing
+    }
+
+    @Override
     public void setOnGameWonListener(OnGameWonListener listener) {
         //do nothing
     }
 
     @Override
     public void setOnGameOverListener(OnGameOverListener listener) {
+        //do nothing
+    }
+
+    @Override
+    public void setOnTileMoveListener(OnTileMoveListener listener) {
+        //do nothing
+    }
+
+    @Override
+    public void setOnTileMergeListener(OnTileMergeListener listener) {
         //do nothing
     }
 

@@ -72,6 +72,7 @@ public class GameEngine implements ILogic {
         //trovare la posizione più lontana libera nella direzione
         //direction 0 = UP, 1 = RIGHT, 2 = DOWN, 3 = LEFT
         boolean moved = false;
+        boolean tileMerged = false;
         int currentTileColor = 0;
 
         switch (direction) {
@@ -89,6 +90,8 @@ public class GameEngine implements ILogic {
                                 board.removeTile(next);
 
                                 currentTileColor = tileToMove.getColor();
+
+                                tileMerged = true;
                             }
 
                             Slot finalSlot = helper.getFinalSlotToMove(tileToMove, 0);
@@ -117,6 +120,7 @@ public class GameEngine implements ILogic {
 
                                 currentTileColor = tileToMove.getColor();
 
+                                tileMerged = true;
                             }
 
                             Slot finalSlot = helper.getFinalSlotToMove(tileToMove, 1);
@@ -144,6 +148,8 @@ public class GameEngine implements ILogic {
                                 board.removeTile(next);
 
                                 currentTileColor = tileToMove.getColor();
+
+                                tileMerged = true;
                             }
 
                             Slot finalSlot = helper.getFinalSlotToMove(tileToMove, 2);
@@ -173,6 +179,8 @@ public class GameEngine implements ILogic {
                                 board.removeTile(next);
 
                                 currentTileColor = tileToMove.getColor();
+
+                                tileMerged = true;
                             }
 
                             Slot finalSlot = helper.getFinalSlotToMove(tileToMove, 3);
@@ -188,16 +196,23 @@ public class GameEngine implements ILogic {
                 break;
         }
 
+
         if (moved) {
-            if (currentTileColor > currentMaxColor) {
-                currentMaxColor = currentTileColor;
-            }
+            gameView.tileMove();
+        }
+        if(tileMerged){
+            gameView.tileMerge();
+            score++;
+        }
+        if (currentTileColor > currentMaxColor) {
+            currentMaxColor = currentTileColor;
+        }
+        checkGameWon();
+        checkGameOver();
+        if (moved || tileMerged) {
+
             gameView.updateView();
             colorPaletteView.updateView();
-            score++;
-
-            checkGameWon();
-            checkGameOver();
 
             if (gameState == 1) {
                 this.generateTile();
@@ -205,19 +220,6 @@ public class GameEngine implements ILogic {
             }
         }
     }
-
-    /*private Tile getNextTile(Tile tile, int direction) {
-
-        return helper.getNextTile(tile, direction);
-    }
-
-
-    private Slot getFinalSlotToMove(Tile tile, int direction) {
-
-        return helper.getFinalSlotToMove(tile, direction);
-    }
-
-     */
 
     public int getTileColor(int x, int y) {
         Tile tile = this.board.getSlotContent(x, y);

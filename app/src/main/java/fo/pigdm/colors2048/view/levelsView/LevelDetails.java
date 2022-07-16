@@ -1,4 +1,8 @@
-package fo.pigdm.colors2048.view;
+package fo.pigdm.colors2048.view.levelsView;
+
+import android.content.res.Resources;
+
+import fo.pigdm.colors2048.R;
 
 public class LevelDetails {
 

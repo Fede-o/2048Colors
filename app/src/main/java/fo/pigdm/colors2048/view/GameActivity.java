@@ -20,14 +20,19 @@ import fo.pigdm.colors2048.view.gameDialogs.GameOverDialogFragment;
 import fo.pigdm.colors2048.view.gameDialogs.GameWinDialogFragment;
 import fo.pigdm.colors2048.view.gameDialogs.OnGameOverListener;
 import fo.pigdm.colors2048.view.gameDialogs.OnGameWonListener;
+import fo.pigdm.colors2048.view.gameDialogs.OnTileMergeListener;
+import fo.pigdm.colors2048.view.gameDialogs.OnTileMoveListener;
 
 public class GameActivity extends AppCompatActivity {
 
     int currentLevel = 0;
+    boolean soundFX = false;
+    boolean bgMusic = false;
 
     ILogic gameEngine;
     IView gameView;
     IView colorPaletteView;
+    SoundPlayer soundPlayer;
 
     public void startMainActivity(View view) {
         Intent intent = new Intent(this, MainActivity.class);
@@ -37,6 +42,9 @@ public class GameActivity extends AppCompatActivity {
     public void readSavedSettings() {
         SharedPreferences gameSettings = PreferenceManager.getDefaultSharedPreferences(this);
         currentLevel = Integer.parseInt(gameSettings.getString("level", "0"));
+        soundFX = gameSettings.getBoolean("sound_effects", false);
+        bgMusic = gameSettings.getBoolean("background_music", false);
+
     }
 
     public void showWinnerDialog() {
@@ -72,6 +80,7 @@ public class GameActivity extends AppCompatActivity {
         hideSystemBars();
 
         readSavedSettings();
+        soundPlayer = new SoundPlayer(this);
 
         gameEngine = new GameEngine();
 
@@ -91,6 +100,8 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void onGameWon() {
                         showWinnerDialog();
+                        if(soundFX)
+                            soundPlayer.playSound("LEVELCOMPLETE");
                     }
                 });
 
@@ -99,6 +110,26 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void onGameOver() {
                         showGameOverDialog();
+                        if(soundFX)
+                            soundPlayer.playSound("GAMEOVER");
+                    }
+                });
+
+        gameView.setOnTileMoveListener(
+                new OnTileMoveListener() {
+                    @Override
+                    public void onTileMove() {
+                        if(soundFX)
+                            soundPlayer.playSound("TILEMOVE");
+                    }
+                });
+
+        gameView.setOnTileMergeListener(
+                new OnTileMergeListener() {
+                    @Override
+                    public void onTileMerge() {
+                        if(soundFX)
+                            soundPlayer.playSound("TILEMERGE");
                     }
                 });
 
@@ -132,6 +163,8 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
     }
 

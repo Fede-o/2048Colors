@@ -16,15 +16,17 @@
     <!-- LEVELS COLOR PALETTE-->
     <!--GLOBAL COLOR PALETTE-->
     <array name="colorPalette">
-        <item>#FF8F33</item>
-        <item>#FFCD36</item>
-        <item>#3ADE00</item>
-        <item>#1941FF</item>
-        <item>#FF3D2E</item>
-        <item>#B200FF</item>
-        <item>#D50101</item>
-        <item>#880000</item>
-        <item>#610000</item>
+        <item>#FFE174</item>
+        <item>#FFA200</item>
+        <item>#FF5100</item>
+        <item>#CD0000</item>
+        <item>#C8FF00</item>
+        <item>#07CA00</item>
+        <item>#00D4BB</item>
+        <item>#0099FF</item>
+        <item>#0040FF</item>
+        <item>#8062D5</item>
+        <item>#A500FF</item>
     </array>
 
     <!--LEVEL 1
