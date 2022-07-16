@@ -14,18 +14,23 @@
         android:theme="@style/Theme.2048Colors"
         tools:targetApi="31">
         <activity
+            android:theme="@style/Theme.2048Colors.ActionBar"
             android:name=".view.SettingsActivity"
+            android:parentActivityName=".view.MainActivity" />
             android:exported="false"
             android:label="@string/title_activity_settings"
             android:screenOrientation="portrait" />
         <activity
+            android:theme="@style/Theme.2048Colors.ActionBar"
             android:name=".view.LevelsActivity"
+            android:parentActivityName=".view.MainActivity" />
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.GameActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".view.MainActivity" />/>
         <activity
             android:name=".view.MainActivity"
             android:exported="true"

@@ -1,9 +1,13 @@
 package fo.pigdm.colors2048.view;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -17,6 +21,7 @@ public class LevelsActivity extends AppCompatActivity {
 
     private ArrayList<LevelDetails> levelDetailsArrayList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +29,10 @@ public class LevelsActivity extends AppCompatActivity {
         levelsRecyclerView = findViewById(R.id.levels_rec_view);
 
         levelDetailsArrayList = new ArrayList<>();
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        SharedPreferences.Editor editor = sharedPref.edit();
+
 
         int[] numColorsLevels = getResources().getIntArray(R.array.numColorsLevels);
 
@@ -41,7 +50,8 @@ public class LevelsActivity extends AppCompatActivity {
                 new OnLevelSelectedListener() {
                     @Override
                     public void onLevelClick(View itemView, int position) {
-                        //impostare livello in sharedPreferences
+                        editor.putString("level", String.valueOf(position));
+                        editor.apply();
                     }
                 }
         );
@@ -50,5 +60,11 @@ public class LevelsActivity extends AppCompatActivity {
 
         levelsRecyclerView.setLayoutManager(linearLayoutManager);
         levelsRecyclerView.setAdapter(levelAdapter);
+
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 }

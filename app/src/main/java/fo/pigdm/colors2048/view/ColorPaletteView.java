@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -36,6 +37,8 @@ public class ColorPaletteView extends View  implements IView {
     int viewWidth;
     int viewHeight;
     private final Paint paint = new Paint();
+    private Typeface typeface;
+
 
 
     public ColorPaletteView(Context context) {
@@ -45,6 +48,9 @@ public class ColorPaletteView extends View  implements IView {
     //CONSTRUCTOR FOR GENERATION OF VIEW FROM XML LAYOUT
     public ColorPaletteView(Context context, AttributeSet attributes) {
         super(context, attributes);
+        //todo risolvere crash
+        //typeface = getResources().getFont(R.font.roboto);
+
     }
 
     @Override
@@ -92,6 +98,9 @@ public class ColorPaletteView extends View  implements IView {
             paint.setTextAlign(Paint.Align.RIGHT);
             paint.setTextSize(50);
             paint.setColor(Color.BLACK);
+
+            paint.setTypeface(typeface);
+
             canvas.drawText("PROSSIMO COLORE:", textX, textY, paint);
 
             float boxStartX = nextColorX;
@@ -121,24 +130,6 @@ public class ColorPaletteView extends View  implements IView {
         int numColors = getNumColors();
         int[] palette = new int[numColors];
         TypedArray paletteFromXml;
-        /*
-        //old code using multiple color palette
-        switch(currentLevel) {
-            case 0:
-                paletteFromXml = getResources().obtainTypedArray(R.array.colorPalette_level0);
-                for (int i = 0; i < paletteFromXml.length(); i++) {
-                    palette[i] = paletteFromXml.getColor(i, 0);
-                }
-                break;
-            case 1:
-                paletteFromXml = getResources().obtainTypedArray(R.array.colorPalette_level1);
-                for (int i = 0; i < paletteFromXml.length(); i++) {
-                    palette[i] = paletteFromXml.getColor(i, 0);
-                }
-                break;
-        }
-        */
-
         //retrieve the first i colors of the global palette based on the current level
         paletteFromXml = getResources().obtainTypedArray(R.array.colorPalette);
         for (int i = 0; i < numColors; i++) {

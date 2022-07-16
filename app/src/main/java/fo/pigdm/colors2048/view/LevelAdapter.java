@@ -1,6 +1,7 @@
 package fo.pigdm.colors2048.view;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.selection.ItemDetailsLookup;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,8 +31,13 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder> 
     public LevelAdapter(Context context, ArrayList<LevelDetails> levelDetailsArrayList) {
         this.context = context;
         this.levelDetailsArrayList = levelDetailsArrayList;
+        readSavedSettings();
     }
 
+    public void readSavedSettings() {
+        SharedPreferences gameSettings = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        checkedPosition = Integer.parseInt(gameSettings.getString("level", "0"));
+    }
 
     @NonNull
     @Override
