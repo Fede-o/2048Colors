@@ -1,4 +1,4 @@
-package fo.pigdm.colors2048.logic;
+package fo.pigdm.colors2048.logic.gameComponents;
 
 import java.util.ArrayList;
 import java.util.Random;

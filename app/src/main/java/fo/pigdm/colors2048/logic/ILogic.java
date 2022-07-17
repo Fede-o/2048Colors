@@ -1,5 +1,7 @@
 package fo.pigdm.colors2048.logic;
 
+import fo.pigdm.colors2048.logic.gameComponents.Slot;
+import fo.pigdm.colors2048.logic.gameComponents.Tile;
 import fo.pigdm.colors2048.view.IView;
 
 public interface ILogic {

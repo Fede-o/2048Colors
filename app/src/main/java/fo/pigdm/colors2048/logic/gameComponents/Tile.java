@@ -1,4 +1,6 @@
-package fo.pigdm.colors2048.logic;
+package fo.pigdm.colors2048.logic.gameComponents;
+
+import fo.pigdm.colors2048.logic.gameComponents.Slot;
 
 public class Tile extends Slot {
 

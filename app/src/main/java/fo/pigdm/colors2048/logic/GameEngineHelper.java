@@ -1,8 +1,11 @@
 package fo.pigdm.colors2048.logic;
 
+import fo.pigdm.colors2048.logic.gameComponents.Slot;
+import fo.pigdm.colors2048.logic.gameComponents.Tile;
+
 public class GameEngineHelper {
 
-    GameEngine gameEngine;
+    private final GameEngine gameEngine;
 
 
     public GameEngineHelper(GameEngine gameEng) {
@@ -23,7 +26,7 @@ public class GameEngineHelper {
 
             //for direction RIGHT = 1
             case 1:
-                for(int i = (tile.getX() + 1); i < gameEngine.NUM_COLUMNS; i++) {
+                for(int i = (tile.getX() + 1); i < GameEngine.NUM_COLUMNS; i++) {
                     if (gameEngine.board.getSlotContent(i, tile.getY()) != null) {
                         return gameEngine.board.getSlotContent(i, tile.getY());
                     }
@@ -33,7 +36,7 @@ public class GameEngineHelper {
             //for direction DOWN = 2
             case 2:
 
-                for(int i = (tile.getY() + 1); i < gameEngine.NUM_ROWS; i++) {
+                for(int i = (tile.getY() + 1); i < GameEngine.NUM_ROWS; i++) {
                     if (gameEngine.board.getSlotContent(tile.getX(), i) != null) {
                         return gameEngine.board.getSlotContent(tile.getX(), i);
                     }

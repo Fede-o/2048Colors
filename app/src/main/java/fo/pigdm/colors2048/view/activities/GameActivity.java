@@ -10,12 +10,14 @@ import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 
 import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.logic.GameEngine;
 import fo.pigdm.colors2048.logic.ILogic;
+import fo.pigdm.colors2048.utils.BackgroundMusicService;
 import fo.pigdm.colors2048.view.IView;
 import fo.pigdm.colors2048.utils.SoundPlayer;
 import fo.pigdm.colors2048.view.gameDialogs.GameOverDialogFragment;
@@ -35,18 +37,24 @@ public class GameActivity extends AppCompatActivity {
     IView gameView;
     IView colorPaletteView;
     SoundPlayer soundPlayer;
+    MediaPlayer musicPlayer;
 
     public void startMainActivity(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    public void startSettingsActivity(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
+
     public void readSavedSettings() {
         SharedPreferences gameSettings = PreferenceManager.getDefaultSharedPreferences(this);
         currentLevel = Integer.parseInt(gameSettings.getString("level", "0"));
         soundFX = gameSettings.getBoolean("sound_effects", false);
         bgMusic = gameSettings.getBoolean("background_music", false);
-
     }
 
     public void showWinnerDialog() {
@@ -85,6 +93,13 @@ public class GameActivity extends AppCompatActivity {
 
         readSavedSettings();
         soundPlayer = new SoundPlayer(this);
+        musicPlayer = MediaPlayer.create(this, R.raw.bg_music_loop);
+        if(musicPlayer != null) {
+            musicPlayer.setLooping(true);
+            musicPlayer.setVolume(0.1f, 0.1f);
+            //if(bgMusic)
+               // musicPlayer.start();
+        }
 
         gameEngine = new GameEngine();
 
@@ -116,6 +131,7 @@ public class GameActivity extends AppCompatActivity {
                         showGameOverDialog();
                         if(soundFX)
                             soundPlayer.playSound("GAMEOVER");
+
                     }
                 });
 
@@ -168,8 +184,37 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        musicPlayer.pause();
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(bgMusic)
+            musicPlayer.start();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(bgMusic)
+            musicPlayer.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        musicPlayer.pause();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        musicPlayer.stop();
+        musicPlayer.release();
     }
 
 

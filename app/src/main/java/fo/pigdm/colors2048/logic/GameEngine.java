@@ -1,5 +1,8 @@
 package fo.pigdm.colors2048.logic;
 
+import fo.pigdm.colors2048.logic.gameComponents.Board;
+import fo.pigdm.colors2048.logic.gameComponents.Slot;
+import fo.pigdm.colors2048.logic.gameComponents.Tile;
 import fo.pigdm.colors2048.view.IView;
 
 public class GameEngine implements ILogic {
@@ -14,7 +17,7 @@ public class GameEngine implements ILogic {
     Board board = null;
     int currentLevel = 0;
     long score = 0;
-    boolean isPlaying = false;
+    //boolean isPlaying = false;
     int currentMaxColor = 0;
     int numColors = 0;
 
@@ -28,7 +31,7 @@ public class GameEngine implements ILogic {
     public void newGame() {
         board = new Board(NUM_COLUMNS, NUM_ROWS);
         initializeBoard();
-        isPlaying = true;
+        //isPlaying = true;
         gameState = 1;
         score = 0;
         currentMaxColor = 0;
@@ -257,7 +260,7 @@ public class GameEngine implements ILogic {
 
     private void checkGameWon() {
         if(currentMaxColor >= (numColors-1)){
-            isPlaying = false;
+            //isPlaying = false;
             gameState = 2;
             gameView.gameWon();
         }
@@ -265,7 +268,7 @@ public class GameEngine implements ILogic {
 
     private void checkGameOver() {
         if(board.getRandomAvailableSlot() == null){
-            isPlaying = false;
+            //isPlaying = false;
             gameState = -1;
             gameView.gameOver();
         }

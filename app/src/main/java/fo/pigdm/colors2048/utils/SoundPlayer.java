@@ -29,7 +29,7 @@ public class SoundPlayer {
         tile_move = soundPool.load(context, R.raw.tile_move, 1);
         tile_merge = soundPool.load(context, R.raw.tile_merge, 1);
         game_over = soundPool.load(context, R.raw.game_over, 1);
-        //level_complete = ...
+        level_complete = soundPool.load(context, R.raw.level_complete, 1);
     }
 
     public void playSound(String soundName) {
@@ -43,10 +43,11 @@ public class SoundPlayer {
                 //soundPool.autoPause();
                 break;
             case "TILEMERGE":
-                soundPool.play(tile_merge, 1.0f, 1.0f, 1, 0, 1.0f);
+                soundPool.play(tile_merge, 0.7f, 0.7f, 1, 0, 1.0f);
                 break;
             case "LEVELCOMPLETE":
-                //todo
+                soundPool.play(level_complete, 1.0f, 1.0f, 1, 0, 1.0f);
+
                 break;
         }
     }

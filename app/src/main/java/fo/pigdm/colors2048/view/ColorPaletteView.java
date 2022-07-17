@@ -9,6 +9,8 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.logic.ILogic;
 import fo.pigdm.colors2048.view.gameDialogs.OnGameOverListener;
@@ -25,19 +27,25 @@ public class ColorPaletteView extends View  implements IView {
     int[] colorPalette;
     //int numColors;
     float boxSize;
+    float boxNextSize;
     float boxMargin;
+    float paletteMargin;
     float paletteStartingX;
     float paletteStartingY;
     float paletteEndingX;
     float paletteEndingY;
     float paletteAreaHeight;
     float nextColorAreaHeight;
+    float levelTitleAreaHeight;
+    float topBarAreaHeight;
     float textX;
     float textY;
     float nextColorX;
     float nextColorY;
     int viewWidth;
     int viewHeight;
+    String[] levelNames;
+
     private final Paint paint = new Paint();
     private Typeface typeface;
 
@@ -51,8 +59,8 @@ public class ColorPaletteView extends View  implements IView {
     public ColorPaletteView(Context context, AttributeSet attributes) {
         super(context, attributes);
         //todo risolvere crash
-        //typeface = getResources().getFont(R.font.roboto);
-
+        typeface = ResourcesCompat.getFont(context, R.font.roboto_black);
+        levelNames = getResources().getStringArray(R.array.levels_entries);
     }
 
     @Override
@@ -66,26 +74,30 @@ public class ColorPaletteView extends View  implements IView {
 
     private void setElementsDimensions(float width, float height) {
         int numColors = getNumColors();
+        paletteMargin = (width / logic.getNumColumns() + 1) / 7;
 
-        paletteAreaHeight = height / 2;
-        nextColorAreaHeight = height / 2;
+        paletteAreaHeight = height / 4;
+        nextColorAreaHeight = height / 4;
+        levelTitleAreaHeight = height / 4;
+        topBarAreaHeight = height / 4;
 
-        boxSize = width / (float)numColors;
+        boxSize = (width - (paletteMargin * 2) )/ (float)numColors;
         boxMargin = boxSize / 7;
         boxSize = boxSize - (boxMargin);
+        boxNextSize = width / 7;
 
-        float paletteMiddleX = width / 2;
-        float paletteMiddleY = paletteAreaHeight / 2;
+        float paletteMiddleX = (width - (paletteMargin * 2) / 2);
+        float paletteMiddleY = topBarAreaHeight + levelTitleAreaHeight + (paletteAreaHeight / 2);
 
-        paletteStartingX = boxMargin;
+        paletteStartingX = paletteMargin + boxMargin;
         paletteStartingY = paletteMiddleY - (boxSize / 2);
-        paletteEndingX = width - boxMargin;
+        paletteEndingX = width - paletteMargin;
         paletteEndingY = paletteMiddleY + (boxSize / 2);
 
-        float nextColorAreaMiddleY = paletteAreaHeight + (nextColorAreaHeight / 2);
-        textX = ((width / 3) * 2) - 50;
-        textY = nextColorAreaMiddleY;
-        nextColorX = ((width / 3) * 2) + 50;
+        float nextColorAreaMiddleY = topBarAreaHeight + levelTitleAreaHeight + paletteAreaHeight + (nextColorAreaHeight / 2);
+        textX = ((width / 3) * 2) - 20;
+        textY = nextColorAreaMiddleY + 10;
+        nextColorX = ((width / 3) * 2) + 20;
         nextColorY = nextColorAreaMiddleY;
 
     }
@@ -97,18 +109,30 @@ public class ColorPaletteView extends View  implements IView {
             this.setElementsDimensions(viewWidth, viewHeight);
             drawPalette(canvas);
 
+            paint.setTypeface(typeface);
+
+            paint.setTextAlign(Paint.Align.CENTER);
+            paint.setTextSize(80);
+            paint.setColor(getResources().getColor(R.color.md_theme_light_primary));
+
+            canvas.drawText(levelNames[currentLevel], (float)(viewWidth/2), (paletteStartingY - 100), paint);
+
             paint.setTextAlign(Paint.Align.RIGHT);
             paint.setTextSize(50);
-            paint.setColor(Color.BLACK);
-
-            paint.setTypeface(typeface);
+            paint.setColor(getResources().getColor(R.color.md_theme_light_primary));
 
             canvas.drawText("PROSSIMO COLORE:", textX, textY, paint);
 
+            paint.setTextAlign(Paint.Align.LEFT);
+            paint.setTextSize(60);
+            paint.setColor(getResources().getColor(R.color.md_theme_light_primary));
+
+            canvas.drawText(String.valueOf(logic.getScore()), paletteStartingX*3, paletteMargin*3, paint);
+
             float boxStartX = nextColorX;
-            float boxEndX = nextColorX + boxSize;
-            float boxStartY = nextColorY - (boxSize / 2);
-            float boxEndY = nextColorY + (boxSize / 2);
+            float boxEndX = nextColorX + boxNextSize;
+            float boxStartY = nextColorY - (boxNextSize / 2);
+            float boxEndY = nextColorY + (boxNextSize / 2);
 
             paint.setColor(colorPalette[logic.getNextColor()]);
             canvas.drawRoundRect(boxStartX, boxStartY, boxEndX, boxEndY, (float) 20, (float) 20, paint);

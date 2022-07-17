@@ -39,7 +39,6 @@ public class GameView extends View implements IView {
     private final Paint paint = new Paint();
     int currentLevel;
     int[] colorPalette;
-    int numColors;
 
     float prevX, prevY;
 

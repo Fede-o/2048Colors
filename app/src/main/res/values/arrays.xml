@@ -29,11 +29,11 @@
 
     <string-array name="level_preview_image">
         <item>ic_palettelev1</item>
-        <item>ic_palettelev1</item>
-        <item>ic_palettelev1</item>
-        <item>ic_palettelev1</item>
-        <item>ic_palettelev1</item>
-        <item>ic_palettelev1</item>
+        <item>ic_palettelev2</item>
+        <item>ic_palettelev3</item>
+        <item>ic_palettelev4</item>
+        <item>ic_palettelev5</item>
+        <item>ic_palettelev6</item>
     </string-array>
 
 </resources>

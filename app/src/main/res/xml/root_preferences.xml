@@ -9,7 +9,7 @@
             app:key="level"
             app:title="@string/levels_title"
             app:useSimpleSummaryProvider="true"
-            app:isPreferenceVisible="true"/>
+            app:isPreferenceVisible="false"/>
 
     </PreferenceCategory>
 
