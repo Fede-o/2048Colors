@@ -30,7 +30,7 @@ public class GameView extends View implements IView {
 
     int slotSize = 0;
     int boardMargin = 0;
-    float boardStartingX;
+    public float boardStartingX;
     float boardStartingY;
     float boardEndingX;
     float boardEndingY;
@@ -50,6 +50,7 @@ public class GameView extends View implements IView {
     //CONSTRUCTOR FOR GENERATION OF VIEW FROM XML LAYOUT
     public GameView(Context context, AttributeSet attributes) {
         super(context, attributes);
+        this.setOnTouchListener(new InputListener(this));
     }
 
     @Override
@@ -84,25 +85,25 @@ public class GameView extends View implements IView {
     @Override
     public void onDraw(Canvas canvas) {
         currentLevel = logic.getCurrentLevel();
+        canvas.drawColor(getResources().getColor(R.color.md_theme_light_inverseOnSurface));
         drawBoardAndSlots(canvas);
         drawTiles(canvas);
     }
 
     private void drawTiles(Canvas canvas) {
-
         colorPalette = getColorPalette();
         for (int y = 0; y < logic.getNumRows(); y++) {
             for (int x = 0; x < logic.getNumColumns(); x++) {
-                int slotStartX = (int) boardStartingX + boardMargin + ((slotSize + boardMargin) * x);
-                int slotEndX = slotStartX + slotSize;
-                int slotStartY = (int) boardStartingY + boardMargin + ((slotSize + boardMargin) * y);
-                int slotEndY = slotStartY + slotSize;
+                float slotStartX = boardStartingX + boardMargin + ((slotSize + boardMargin) * x);
+                float slotEndX = slotStartX + slotSize;
+                float slotStartY = boardStartingY + boardMargin + ((slotSize + boardMargin) * y);
+                float slotEndY = slotStartY + slotSize;
 
                 int currentTileColor = logic.getTileColor(x, y);
 
                 if (currentTileColor >= 0 && currentTileColor <colorPalette.length) {
                     paint.setColor(colorPalette[currentTileColor]);
-                    canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50, (float) 50, paint);
+                    canvas.drawRoundRect((float) slotStartX, (float) slotStartY, (float) slotEndX, (float) slotEndY, (float) 50.0f, (float) 50.0f, paint);
                 }
             }
         }
@@ -110,7 +111,7 @@ public class GameView extends View implements IView {
 
     private void drawBoardAndSlots(Canvas canvas) {
         paint.setColor(Color.GRAY);
-        canvas.drawRoundRect((float) boardStartingX, (float) boardStartingY, (float) boardEndingX, (float) boardEndingY, (float) 50, (float) 50, paint);
+        canvas.drawRoundRect((float) boardStartingX, (float) boardStartingY, (float) boardEndingX, (float) boardEndingY, (float) 50.0f, (float) 50.0f, paint);
         paint.setColor(Color.LTGRAY);
         for (int y = 0; y < logic.getNumRows(); y++) {
             for (int x = 0; x < logic.getNumColumns(); x++) {
@@ -135,14 +136,6 @@ public class GameView extends View implements IView {
 
     public void updateView() {
         invalidate();
-    }
-
-    public void updateScore(){
-        TextView scoreText = findViewById(R.id.score);
-
-        CharSequence score = String.valueOf(logic.getScore());
-
-        scoreText.setText(score);
     }
 
     public void setLogic(ILogic logic) {
@@ -179,51 +172,13 @@ public class GameView extends View implements IView {
 
     public void tileMerge() {tileMergeListener.onTileMerge();}
 
+    public float getBoardStartingX() {
+        return boardStartingX;
+    }
+
     @Override
-    public boolean onTouchEvent(MotionEvent motionEvent) {
-        switch (motionEvent.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                prevX = motionEvent.getX();
-                prevY = motionEvent.getY();
-
-                break;
-
-            case MotionEvent.ACTION_UP:
-                float newX = motionEvent.getX();
-                float newY = motionEvent.getY();
-
-                if(Math.abs(newX - prevX) > Math.abs(newY - prevY)){
-                    //HORIZONTAL SWIPE
-                    if(newX > prevX) {
-                        //SWIPE RIGHT
-                        logic.playerMove(1);
-                        //invalidate();
-
-                    }else{
-                        //SWIPE LEFT
-                        logic.playerMove(3);
-                        //invalidate();
-
-                    }
-                }else{
-                    //VERTICAL SWIPE
-                    if(newY < prevY) {
-                        //SWIPE UP
-                        logic.playerMove(0);
-                        //invalidate();
-
-                    }else{
-                        //SWIPE DOWN
-                        logic.playerMove(2);
-                        //invalidate();
-
-                    }
-                }
-                break;
-
-        }
-
-        return true;
+    protected void onFinishInflate() {
+        super.onFinishInflate();
     }
 
 }

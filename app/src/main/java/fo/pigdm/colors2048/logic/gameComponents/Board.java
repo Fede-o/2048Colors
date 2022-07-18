@@ -75,5 +75,20 @@ public class Board {
         }
     }
 
+    public int getCurrentMaxColor() {
+        int currentMaxColor = 0;
+        for (int x = 0; x < this.gameBoard.length; x++) {
+            for (int y = 0; y < this.gameBoard[0].length; y++) {
+                if(this.gameBoard[x][y] != null) {
+                    int currentTileColor = this.gameBoard[x][y].getColor();
+                    if (currentTileColor > currentMaxColor) {
+                        currentMaxColor = currentTileColor;
+                    }
+                }
+            }
+        }
+        return currentMaxColor;
+    }
+
 
 }

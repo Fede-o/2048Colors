@@ -32,6 +32,4 @@ public interface IView {
 
     public void setLogic(ILogic logic);
 
-    public void setView(IView view);
-
 }

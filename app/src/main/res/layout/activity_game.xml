@@ -10,84 +10,113 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:orientation="vertical"
         android:layout_gravity="top"
         android:layout_weight="3">
 
         <fo.pigdm.colors2048.view.ColorPaletteView
             android:id="@+id/colorPaletteView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
         </fo.pigdm.colors2048.view.ColorPaletteView>
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/roboto_black"
-            android:text="2048Colors"
-            android:textSize="24sp"
-            android:typeface="sans"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:fontFamily="@font/roboto_black"
-            android:text="@string/score_text"
-            android:textSize="16sp"
-            android:typeface="sans"
-            app:layout_constraintEnd_toStartOf="@+id/title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone"/>
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:onClick="startMainActivity"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
-
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="16dp"
-            android:onClick="startSettingsActivity"
-            android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton"
-            app:layout_constraintStart_toEndOf="@+id/title"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_black"
-            android:text="..........."
-            android:textSize="24sp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_weight="1"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.32"
-            android:visibility="gone"/>
+            app:layout_constraintTop_toTopOf="@+id/colorPaletteView"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="-102dp">
 
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto_black"
+                android:text="2048Colors"
+                android:textColor="@color/md_theme_light_primary"
+                android:textSize="20sp"
+                android:typeface="sans"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/scoreText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:fontFamily="@font/roboto_black"
+                android:text="test"
+                android:textSize="16sp"
+                android:typeface="sans"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/exitText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_black"
+                android:text="@string/exit_text"
+                android:textAlignment="textEnd"
+                android:textColor="@color/md_theme_light_primary"
+                android:textSize="12sp"
+                android:typeface="sans"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toStartOf="@+id/exitButton"
+                app:layout_constraintHorizontal_bias="0.84"
+                app:layout_constraintStart_toEndOf="@+id/title"
+                app:layout_constraintTop_toTopOf="@+id/title" />
+
+            <ImageButton
+                android:id="@+id/exitButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="24dp"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="@android:drawable/ic_menu_close_clear_cancel"
+                android:onClick="startMainActivity"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title" />
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:onClick="startSettingsActivity"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/exitButton"
+                app:layout_constraintStart_toEndOf="@+id/title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="26dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="24dp"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toStartOf="@+id/title"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/title"
+                app:srcCompat="@drawable/ic_star_icon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

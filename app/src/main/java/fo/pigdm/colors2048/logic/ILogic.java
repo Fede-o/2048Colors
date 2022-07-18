@@ -26,9 +26,9 @@ public interface ILogic {
 
     public int getCurrentLevel();
 
-    public int getNextColor();
+    public void setGridDim(int gridDim);
 
-    public int getGameState();
+    public int getNextColor();
 
     public long getScore();
 

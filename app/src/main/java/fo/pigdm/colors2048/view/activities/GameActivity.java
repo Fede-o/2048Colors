@@ -13,11 +13,13 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.logic.GameEngine;
 import fo.pigdm.colors2048.logic.ILogic;
-import fo.pigdm.colors2048.utils.BackgroundMusicService;
+import fo.pigdm.colors2048.view.ColorPaletteView;
+import fo.pigdm.colors2048.view.GameView;
 import fo.pigdm.colors2048.view.IView;
 import fo.pigdm.colors2048.utils.SoundPlayer;
 import fo.pigdm.colors2048.view.gameDialogs.GameOverDialogFragment;
@@ -32,10 +34,11 @@ public class GameActivity extends AppCompatActivity {
     int currentLevel = 0;
     boolean soundFX = false;
     boolean bgMusic = false;
+    int gridDim = 4;
 
     ILogic gameEngine;
-    IView gameView;
-    IView colorPaletteView;
+    GameView gameView;
+    ColorPaletteView colorPaletteView;
     SoundPlayer soundPlayer;
     MediaPlayer musicPlayer;
 
@@ -49,12 +52,12 @@ public class GameActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     public void readSavedSettings() {
         SharedPreferences gameSettings = PreferenceManager.getDefaultSharedPreferences(this);
         currentLevel = Integer.parseInt(gameSettings.getString("level", "0"));
         soundFX = gameSettings.getBoolean("sound_effects", false);
         bgMusic = gameSettings.getBoolean("background_music", false);
+        gridDim = Integer.parseInt(gameSettings.getString("grid_dim", "1"));
     }
 
     public void showWinnerDialog() {
@@ -68,7 +71,6 @@ public class GameActivity extends AppCompatActivity {
         gameOverDialog.setCancelable(false);
         gameOverDialog.show(getSupportFragmentManager(), "game_over");
     }
-
 
 
     private void hideSystemBars() {
@@ -105,6 +107,7 @@ public class GameActivity extends AppCompatActivity {
 
         //retrieve saved settings
         gameEngine.setCurrentLevel(currentLevel);
+        gameEngine.setGridDim(gridDim);
 
         //set class instances
         gameView = findViewById(R.id.gameView);

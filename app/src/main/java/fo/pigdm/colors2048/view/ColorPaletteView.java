@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 
@@ -21,7 +22,7 @@ import fo.pigdm.colors2048.view.gameDialogs.OnTileMoveListener;
 public class ColorPaletteView extends View  implements IView {
 
     private static ILogic logic;
-    private static IView gameView;
+    private static GameView gameView;
 
     int currentLevel;
     int[] colorPalette;
@@ -58,7 +59,6 @@ public class ColorPaletteView extends View  implements IView {
     //CONSTRUCTOR FOR GENERATION OF VIEW FROM XML LAYOUT
     public ColorPaletteView(Context context, AttributeSet attributes) {
         super(context, attributes);
-        //todo risolvere crash
         typeface = ResourcesCompat.getFont(context, R.font.roboto_black);
         levelNames = getResources().getStringArray(R.array.levels_entries);
     }
@@ -73,23 +73,24 @@ public class ColorPaletteView extends View  implements IView {
     }
 
     private void setElementsDimensions(float width, float height) {
-        int numColors = getNumColors();
-        paletteMargin = (width / logic.getNumColumns() + 1) / 7;
+        float numColors = (float)getNumColors();
+        paletteMargin = gameView.getBoardStartingX();
 
         paletteAreaHeight = height / 4;
         nextColorAreaHeight = height / 4;
         levelTitleAreaHeight = height / 4;
         topBarAreaHeight = height / 4;
 
-        boxSize = (width - (paletteMargin * 2) )/ (float)numColors;
-        boxMargin = boxSize / 7;
-        boxSize = boxSize - (boxMargin);
+        boxMargin = (width - (paletteMargin *2 )) / (numColors*7);
+        boxSize = (width - (paletteMargin * 2) - (boxMargin * (numColors -1))) / numColors;
+
+        //boxSize = boxSize - (boxMargin);
         boxNextSize = width / 7;
 
         float paletteMiddleX = (width - (paletteMargin * 2) / 2);
         float paletteMiddleY = topBarAreaHeight + levelTitleAreaHeight + (paletteAreaHeight / 2);
 
-        paletteStartingX = paletteMargin + boxMargin;
+        paletteStartingX = paletteMargin;
         paletteStartingY = paletteMiddleY - (boxSize / 2);
         paletteEndingX = width - paletteMargin;
         paletteEndingY = paletteMiddleY + (boxSize / 2);
@@ -104,39 +105,47 @@ public class ColorPaletteView extends View  implements IView {
 
     @Override
     public void onDraw(Canvas canvas) {
-            currentLevel = logic.getCurrentLevel();
-            colorPalette = getColorPalette();
-            this.setElementsDimensions(viewWidth, viewHeight);
-            drawPalette(canvas);
+        currentLevel = logic.getCurrentLevel();
+        colorPalette = getColorPalette();
+        this.setElementsDimensions(viewWidth, viewHeight);
 
-            paint.setTypeface(typeface);
+        paint.setColor(getResources().getColor(R.color.md_theme_dark_inverseSurface));
+        canvas.drawRect(0,0,viewWidth, topBarAreaHeight, paint);
 
-            paint.setTextAlign(Paint.Align.CENTER);
-            paint.setTextSize(80);
-            paint.setColor(getResources().getColor(R.color.md_theme_light_primary));
+        paint.setColor(getResources().getColor(R.color.md_theme_dark_surfaceVariant));
+        canvas.drawRect(0,topBarAreaHeight,viewWidth, viewHeight, paint);
 
-            canvas.drawText(levelNames[currentLevel], (float)(viewWidth/2), (paletteStartingY - 100), paint);
+        drawPalette(canvas);
 
-            paint.setTextAlign(Paint.Align.RIGHT);
-            paint.setTextSize(50);
-            paint.setColor(getResources().getColor(R.color.md_theme_light_primary));
+        paint.setTypeface(typeface);
 
-            canvas.drawText("PROSSIMO COLORE:", textX, textY, paint);
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTextSize(80);
+        paint.setColor(getResources().getColor(R.color.md_theme_light_primary));
 
-            paint.setTextAlign(Paint.Align.LEFT);
-            paint.setTextSize(60);
-            paint.setColor(getResources().getColor(R.color.md_theme_light_primary));
+        canvas.drawText(levelNames[currentLevel], (float)(viewWidth/2), (paletteStartingY - 100), paint);
 
-            canvas.drawText(String.valueOf(logic.getScore()), paletteStartingX*3, paletteMargin*3, paint);
+        paint.setTextAlign(Paint.Align.RIGHT);
+        paint.setTextSize(50);
+        paint.setColor(getResources().getColor(R.color.md_theme_light_primary));
 
-            float boxStartX = nextColorX;
-            float boxEndX = nextColorX + boxNextSize;
-            float boxStartY = nextColorY - (boxNextSize / 2);
-            float boxEndY = nextColorY + (boxNextSize / 2);
+        canvas.drawText("PROSSIMO COLORE:", textX, textY, paint);
 
-            paint.setColor(colorPalette[logic.getNextColor()]);
-            canvas.drawRoundRect(boxStartX, boxStartY, boxEndX, boxEndY, (float) 20, (float) 20, paint);
-        }
+        paint.setTextAlign(Paint.Align.LEFT);
+        paint.setTextSize(60);
+        paint.setColor(getResources().getColor(R.color.md_theme_light_primary));
+
+        canvas.drawText(String.valueOf(logic.getScore()), topBarAreaHeight/2 +50, topBarAreaHeight/2 +20, paint);
+
+
+        float boxStartX = nextColorX;
+        float boxEndX = nextColorX + boxNextSize;
+        float boxStartY = nextColorY - (boxNextSize / 2);
+        float boxEndY = nextColorY + (boxNextSize / 2);
+
+        paint.setColor(colorPalette[logic.getNextColor()]);
+        canvas.drawRoundRect(boxStartX, boxStartY, boxEndX, boxEndY, (float) 20, (float) 20, paint);
+    }
 
     private void drawPalette(Canvas canvas) {
         int numColors = getNumColors();
@@ -194,6 +203,7 @@ public class ColorPaletteView extends View  implements IView {
         //do nothing
     }
 
+
     @Override
     public void setOnGameWonListener(OnGameWonListener listener) {
         //do nothing
@@ -219,7 +229,7 @@ public class ColorPaletteView extends View  implements IView {
         this.logic = logic;
     }
 
-    public void setView(IView view){
+    public void setView(GameView view){
         this.gameView = view;
     }
 }

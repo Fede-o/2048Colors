@@ -14,27 +14,37 @@
         android:theme="@style/Theme.2048Colors"
         tools:targetApi="31">
         <activity
-            android:theme="@style/Theme.AppCompat.Light.Dialog"
-            android:name=".view.activities.SettingsActivity"
-            android:parentActivityName=".view.activities.MainActivity"
+            android:name=".view.activities.TutorialActivity"
             android:exported="false"
-            android:excludeFromRecents="true"
-            android:label="@string/title_activity_settings"
-            android:screenOrientation="portrait" />
-        <activity
+            android:label="@string/title_activity_tutorial"
+            android:launchMode="singleInstance"
+            android:parentActivityName=".view.activities.MainActivity"
             android:theme="@style/Theme.2048Colors.ActionBar"
-            android:name=".view.activities.LevelsActivity"
-            android:parentActivityName=".view.activities.MainActivity"
+            />
+        <activity
+            android:name=".view.activities.SettingsActivity"
+            android:excludeFromRecents="true"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".view.activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity
+            android:name=".view.activities.LevelsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_levels"
+            android:parentActivityName=".view.activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.2048Colors.ActionBar" />
         <activity
             android:name=".view.activities.GameActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".view.activities.MainActivity" />
+            android:parentActivityName=".view.activities.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activities.MainActivity"
             android:exported="true"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,10 +52,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service
-            android:name=".utils.BackgroundMusicService"
-            android:enabled="true" />
 
         <meta-data
             android:name="preloaded_fonts"

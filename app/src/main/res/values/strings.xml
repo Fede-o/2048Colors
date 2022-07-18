@@ -1,15 +1,18 @@
 <resources>
     <string name="app_name" translatable="false">2048Colors</string>
     <string name="title_activity_settings" translatable="false">Opzioni di gioco</string>
+    <string name="title_activity_levels" translatable="false">Livelli</string>
+    <string name="title_activity_tutorial" translatable="false">Come giocare a 2048Colors</string>
 
     <string name="score_text" translatable="false">PUNTEGGIO</string>
+    <string name="exit_text" translatable="false">ESCI</string>
 
     <!-- Preference Titles -->
     <string name="game_settings_header" translatable="false">Opzioni di gioco</string>
     <string name="audio_header" translatable="false">Opzioni Audio</string>
 
     <!-- Game Preferences -->
-    <string name="signature_title" translatable="false">Your signature</string>
+    <string name="dimensions_title" translatable="false">Dimensioni della griglia</string>
     <string name="levels_title" translatable="false">Livello di gioco</string>
 
     <!-- Audio Preferences -->
@@ -17,8 +20,7 @@
     <string name="music_title" translatable="false">Musica di sottofondo</string>
     <string name="music_summary_on" translatable="false">Musica di sottofondo attiva nel gioco e nei menu</string>
     <string name="music_summary_off" translatable="false">Musica di sottofondo disattivata</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+
 
     <string name="game_win_message" translatable="false">Complimenti, hai superato il livello. Vuoi giocare al prossimo livello o tornare al menu principale?</string>
     <string name="game_win_title" translatable="false">LIVELLO SUPERATO!</string>

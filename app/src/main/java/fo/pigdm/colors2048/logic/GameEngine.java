@@ -7,8 +7,8 @@ import fo.pigdm.colors2048.view.IView;
 
 public class GameEngine implements ILogic {
 
-    public final static int NUM_ROWS = 4;
-    public final static int NUM_COLUMNS = 4;
+    public static int NUM_ROWS = 4;
+    public static int NUM_COLUMNS = 4;
 
     private static IView gameView;
     private static IView colorPaletteView;
@@ -17,7 +17,6 @@ public class GameEngine implements ILogic {
     Board board = null;
     int currentLevel = 0;
     long score = 0;
-    //boolean isPlaying = false;
     int currentMaxColor = 0;
     int numColors = 0;
 
@@ -31,7 +30,6 @@ public class GameEngine implements ILogic {
     public void newGame() {
         board = new Board(NUM_COLUMNS, NUM_ROWS);
         initializeBoard();
-        //isPlaying = true;
         gameState = 1;
         score = 0;
         currentMaxColor = 0;
@@ -76,7 +74,6 @@ public class GameEngine implements ILogic {
         //direction 0 = UP, 1 = RIGHT, 2 = DOWN, 3 = LEFT
         boolean moved = false;
         boolean tileMerged = false;
-        int currentTileColor = 0;
 
         switch (direction) {
             //for direction UP = 0
@@ -91,8 +88,6 @@ public class GameEngine implements ILogic {
                             if (next != null && next.getColor() == tileToMove.getColor()) {
                                 tileToMove = new Tile(tileToMove.getX(), tileToMove.getY(), tileToMove.getColor() + 1);
                                 board.removeTile(next);
-
-                                currentTileColor = tileToMove.getColor();
 
                                 tileMerged = true;
                             }
@@ -121,8 +116,6 @@ public class GameEngine implements ILogic {
                                 tileToMove = new Tile(tileToMove.getX(), tileToMove.getY(), tileToMove.getColor() + 1);
                                 board.removeTile(next);
 
-                                currentTileColor = tileToMove.getColor();
-
                                 tileMerged = true;
                             }
 
@@ -149,8 +142,6 @@ public class GameEngine implements ILogic {
                             if (next != null && next.getColor() == tileToMove.getColor()) {
                                 tileToMove = new Tile(tileToMove.getX(), tileToMove.getY(), tileToMove.getColor() + 1);
                                 board.removeTile(next);
-
-                                currentTileColor = tileToMove.getColor();
 
                                 tileMerged = true;
                             }
@@ -181,8 +172,6 @@ public class GameEngine implements ILogic {
                                 tileToMove = new Tile(tileToMove.getX(), tileToMove.getY(), tileToMove.getColor() + 1);
                                 board.removeTile(next);
 
-                                currentTileColor = tileToMove.getColor();
-
                                 tileMerged = true;
                             }
 
@@ -199,7 +188,6 @@ public class GameEngine implements ILogic {
                 break;
         }
 
-
         if (moved) {
             gameView.tileMove();
         }
@@ -207,19 +195,15 @@ public class GameEngine implements ILogic {
             gameView.tileMerge();
             score++;
         }
-        if (currentTileColor > currentMaxColor) {
-            currentMaxColor = currentTileColor;
-        }
         checkGameWon();
         checkGameOver();
-        if (moved || tileMerged) {
 
+        if (moved || tileMerged) {
             gameView.updateView();
             colorPaletteView.updateView();
 
             if (gameState == 1) {
                 this.generateTile();
-
             }
         }
     }
@@ -244,14 +228,10 @@ public class GameEngine implements ILogic {
     }
 
     public int getNextColor(){
-        if(currentMaxColor < (numColors -1))
-            return currentMaxColor + 1;
+        if(board.getCurrentMaxColor() < (numColors -1))
+            return board.getCurrentMaxColor() + 1;
         else
-            return currentMaxColor;
-    }
-
-    public int getGameState() {
-        return gameState;
+            return board.getCurrentMaxColor();
     }
 
     public long getScore(){
@@ -259,8 +239,7 @@ public class GameEngine implements ILogic {
     }
 
     private void checkGameWon() {
-        if(currentMaxColor >= (numColors-1)){
-            //isPlaying = false;
+        if(board.getCurrentMaxColor() >= (numColors-1)){
             gameState = 2;
             gameView.gameWon();
         }
@@ -268,10 +247,14 @@ public class GameEngine implements ILogic {
 
     private void checkGameOver() {
         if(board.getRandomAvailableSlot() == null){
-            //isPlaying = false;
             gameState = -1;
             gameView.gameOver();
         }
+    }
+
+    public void setGridDim(int dim) {
+        NUM_COLUMNS = dim;
+        NUM_ROWS = dim;
     }
 
     public void setView(IView gameV, IView colorPaletteV) {

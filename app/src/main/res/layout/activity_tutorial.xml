@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_theme_light_inverseOnSurface"
+    tools:context=".view.activities.TutorialActivity">
+
+
+    <ImageView
+        android:id="@+id/tutorial_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/md_theme_light_inverseOnSurface"
+        android:scaleType="fitStart"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/tutorial_image" />
+
+    <Button
+        android:id="@+id/play_button_tutorial"
+        style="@style/Theme.2048Colors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/roboto_black"
+        android:onClick="setTutorialDone"
+        android:text="GIOCA!"
+        app:cornerRadius="50dp"
+        app:iconTint="@color/md_theme_light_primaryInverse"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="@color/md_theme_light_primary" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
