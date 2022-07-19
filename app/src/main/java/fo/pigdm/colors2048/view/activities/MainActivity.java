@@ -23,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         hideSystemBars();
+        SharedPreferences gameSettings = PreferenceManager.getDefaultSharedPreferences(this);
+        PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
+        readSavedSettings();
     }
 
     public void playGame(View view){
@@ -37,9 +40,6 @@ public class MainActivity extends AppCompatActivity {
     public void readSavedSettings() {
         SharedPreferences gameSettings = PreferenceManager.getDefaultSharedPreferences(this);
         tutorialDone = gameSettings.getBoolean("tutorial_done", false);
-
-        if(!tutorialDone)
-            PreferenceManager.setDefaultValues(this, R.xml.root_preferences, true);
     }
 
     public void startGameActivity(View view) {

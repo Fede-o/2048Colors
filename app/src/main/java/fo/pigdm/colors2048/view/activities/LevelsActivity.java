@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.view.levelsRecyclerView.LevelAdapter;
 import fo.pigdm.colors2048.view.levelsRecyclerView.LevelDetails;
-import fo.pigdm.colors2048.view.levelsRecyclerView.OnLevelSelectedListener;
+import fo.pigdm.colors2048.view.listeners.OnLevelSelectedListener;
 
 public class LevelsActivity extends AppCompatActivity {
 
@@ -50,15 +50,14 @@ public class LevelsActivity extends AppCompatActivity {
         }
 
         LevelAdapter levelAdapter = new LevelAdapter(this, levelDetailsArrayList);
-        levelAdapter.setOnLevelSelectedListener(
-                new OnLevelSelectedListener() {
-                    @Override
-                    public void onLevelClick(View itemView, int position) {
-                        editor.putString("level", String.valueOf(position));
-                        editor.apply();
-                    }
-                }
-        );
+        OnLevelSelectedListener selectedListener = new OnLevelSelectedListener() {
+            @Override
+            public void onLevelClick(View itemView, int position) {
+                editor.putString("level", String.valueOf(position));
+                editor.apply();
+            }
+        };
+        levelAdapter.setOnLevelSelectedListener(selectedListener);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 

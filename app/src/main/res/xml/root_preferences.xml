@@ -4,13 +4,13 @@
 
         <ListPreference
             app:defaultValue="0"
-            app:persistent="true"
             app:entries="@array/levels_entries"
             app:entryValues="@array/levels_values"
+            app:isPreferenceVisible="false"
             app:key="level"
+            app:persistent="true"
             app:title="@string/levels_title"
-            app:useSimpleSummaryProvider="true"
-            app:isPreferenceVisible="false"/>
+            app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
             app:defaultValue="false"
@@ -20,13 +20,12 @@
             app:isPreferenceVisible="false"/>
 
         <ListPreference
-            app:persistent="true"
             app:defaultValue="1"
             app:entries="@array/grid_dim_entries"
             app:entryValues="@array/grid_dim_values"
             app:key="grid_dim"
             app:title="@string/dimensions_title"
-            app:useSimpleSummaryProvider="true"
+            app:useSimpleSummaryProvider="false"
             app:isPreferenceVisible="true"/>
 
     </PreferenceCategory>
@@ -35,9 +34,11 @@
 
         <SwitchPreferenceCompat
             app:key="sound_effects"
+            app:defaultValue="true"
             app:title="@string/sfx_title" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="true"
             app:key="background_music"
             app:title="@string/music_title" />
 

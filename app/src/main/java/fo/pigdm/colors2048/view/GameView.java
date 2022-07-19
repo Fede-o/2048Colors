@@ -5,23 +5,21 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
 
 import fo.pigdm.colors2048.logic.ILogic;
 import fo.pigdm.colors2048.R;
-import fo.pigdm.colors2048.view.gameDialogs.OnGameOverListener;
-import fo.pigdm.colors2048.view.gameDialogs.OnGameWonListener;
-import fo.pigdm.colors2048.view.gameDialogs.OnTileMergeListener;
-import fo.pigdm.colors2048.view.gameDialogs.OnTileMoveListener;
+import fo.pigdm.colors2048.view.listeners.OnGameOverListener;
+import fo.pigdm.colors2048.view.listeners.OnGameWonListener;
+import fo.pigdm.colors2048.view.listeners.OnTileMergeListener;
+import fo.pigdm.colors2048.view.listeners.OnTileMoveListener;
 
 
 public class GameView extends View implements IView {
 
     public ILogic logic;
 
-    private IView paletteView;
+    private ColorPaletteView paletteView;
 
     private OnGameWonListener gameWonListener;
     private OnGameOverListener gameOverListener;
@@ -39,8 +37,6 @@ public class GameView extends View implements IView {
     private final Paint paint = new Paint();
     int currentLevel;
     int[] colorPalette;
-
-    float prevX, prevY;
 
 
     public GameView(Context context) {
@@ -126,7 +122,7 @@ public class GameView extends View implements IView {
         }
     }
 
-    public int[] getColorPalette() {
+    private int[] getColorPalette() {
         return paletteView.getColorPalette();
     }
 
@@ -136,14 +132,6 @@ public class GameView extends View implements IView {
 
     public void updateView() {
         invalidate();
-    }
-
-    public void setLogic(ILogic logic) {
-        this.logic = logic;
-    }
-
-    public void setView(IView view){
-        this.paletteView = view;
     }
 
     public void setOnGameWonListener(OnGameWonListener listener){
@@ -176,9 +164,13 @@ public class GameView extends View implements IView {
         return boardStartingX;
     }
 
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
+    public void setLogic(ILogic logic) {
+        this.logic = logic;
     }
+
+    public void setView(ColorPaletteView view){
+        this.paletteView = view;
+    }
+
 
 }

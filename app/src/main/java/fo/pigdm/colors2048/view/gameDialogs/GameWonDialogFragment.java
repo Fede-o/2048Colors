@@ -15,9 +15,9 @@ import android.view.ViewGroup;
 import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.view.activities.MainActivity;
 
-public class GameWinDialogFragment extends DialogFragment {
+public class GameWonDialogFragment extends DialogFragment {
 
-    public GameWinDialogFragment() {
+    public GameWonDialogFragment() {
 
     }
 
@@ -38,8 +38,6 @@ public class GameWinDialogFragment extends DialogFragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked next level button
-                        //GameView.logic.setCurrentLevel(GameView.logic.getCurrentLevel() + 1);
-                        //GameView.logic.newGame();
                         result.putString("wonResponse", "NEXT");
                         getParentFragmentManager().setFragmentResult("onGameWonUserAction", result);
                     }

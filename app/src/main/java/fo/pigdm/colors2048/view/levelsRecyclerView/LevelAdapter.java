@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import fo.pigdm.colors2048.R;
+import fo.pigdm.colors2048.view.listeners.OnLevelSelectedListener;
 
 public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder> {
 
@@ -31,7 +32,7 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder> 
         readSavedSettings();
     }
 
-    public void readSavedSettings() {
+    private void readSavedSettings() {
         SharedPreferences gameSettings = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         checkedPosition = Integer.parseInt(gameSettings.getString("level", "0"));
     }
@@ -49,9 +50,9 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull LevelAdapter.ViewHolder holder, int position) {
         LevelDetails levelDetails = levelDetailsArrayList.get(position);
-        holder.levelImageView.setImageResource(levelDetails.getLevel_image());
-        holder.levNameTextView.setText(levelDetails.getLevel_name());
-        holder.levDescTextView.setText(levelDetails.getLevel_description());
+        holder.levImageView.setImageResource(levelDetails.getLevelImage());
+        holder.levNameTextView.setText(levelDetails.getLevelName());
+        holder.levDescTextView.setText(levelDetails.getLevelDescription());
 
         if(checkedPosition == position) {
             holder.changeToSelect(true);
@@ -71,19 +72,19 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder> 
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        private ImageView levelImageView;
+    protected class ViewHolder extends RecyclerView.ViewHolder{
+        private ImageView levImageView;
         private TextView levNameTextView;
         private TextView levDescTextView;
-        private TextView levelSelected;
+        private TextView levSelected;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            levelImageView = itemView.findViewById(R.id.level_image);
+            levImageView = itemView.findViewById(R.id.level_image);
             levNameTextView = itemView.findViewById(R.id.level_name);
             levDescTextView = itemView.findViewById(R.id.level_description);
-            levelSelected = itemView.findViewById(R.id.level_selected);
+            levSelected = itemView.findViewById(R.id.level_selected);
 
             itemView.setOnClickListener(
                     new View.OnClickListener() {
@@ -109,9 +110,9 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.ViewHolder> 
 
         public void changeToSelect(boolean selected){
             if(selected)
-                levelSelected.setVisibility(View.VISIBLE);
+                levSelected.setVisibility(View.VISIBLE);
             else
-                levelSelected.setVisibility(View.GONE);
+                levSelected.setVisibility(View.GONE);
         }
 
 

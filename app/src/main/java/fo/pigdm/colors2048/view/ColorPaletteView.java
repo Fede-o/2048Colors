@@ -3,21 +3,15 @@ package fo.pigdm.colors2048.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 
 import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.logic.ILogic;
-import fo.pigdm.colors2048.view.gameDialogs.OnGameOverListener;
-import fo.pigdm.colors2048.view.gameDialogs.OnGameWonListener;
-import fo.pigdm.colors2048.view.gameDialogs.OnTileMergeListener;
-import fo.pigdm.colors2048.view.gameDialogs.OnTileMoveListener;
 
 public class ColorPaletteView extends View  implements IView {
 
@@ -26,7 +20,6 @@ public class ColorPaletteView extends View  implements IView {
 
     int currentLevel;
     int[] colorPalette;
-    //int numColors;
     float boxSize;
     float boxNextSize;
     float boxMargin;
@@ -43,9 +36,9 @@ public class ColorPaletteView extends View  implements IView {
     float textY;
     float nextColorX;
     float nextColorY;
-    int viewWidth;
-    int viewHeight;
-    String[] levelNames;
+    private float viewWidth;
+    private float viewHeight;
+    private String[] levelNames;
 
     private final Paint paint = new Paint();
     private Typeface typeface;
@@ -67,8 +60,8 @@ public class ColorPaletteView extends View  implements IView {
     protected void onLayout (boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
 
-        viewWidth = this.getWidth();
-        viewHeight = this.getHeight();
+        viewWidth = (float) this.getWidth();
+        viewHeight = (float) this.getHeight();
 
     }
 
@@ -200,27 +193,6 @@ public class ColorPaletteView extends View  implements IView {
 
     @Override
     public void tileMerge() {
-        //do nothing
-    }
-
-
-    @Override
-    public void setOnGameWonListener(OnGameWonListener listener) {
-        //do nothing
-    }
-
-    @Override
-    public void setOnGameOverListener(OnGameOverListener listener) {
-        //do nothing
-    }
-
-    @Override
-    public void setOnTileMoveListener(OnTileMoveListener listener) {
-        //do nothing
-    }
-
-    @Override
-    public void setOnTileMergeListener(OnTileMergeListener listener) {
         //do nothing
     }
 

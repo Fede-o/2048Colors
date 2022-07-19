@@ -16,8 +16,8 @@
     <string name="levels_title" translatable="false">Livello di gioco</string>
 
     <!-- Audio Preferences -->
-    <string name="sfx_title" translatable="false">Effetti sonori di gioco</string>
-    <string name="music_title" translatable="false">Musica di sottofondo</string>
+    <string name="sfx_title" translatable="false">Effetti sonori</string>
+    <string name="music_title" translatable="false">Musica</string>
     <string name="music_summary_on" translatable="false">Musica di sottofondo attiva nel gioco e nei menu</string>
     <string name="music_summary_off" translatable="false">Musica di sottofondo disattivata</string>
 

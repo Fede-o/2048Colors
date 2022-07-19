@@ -13,7 +13,6 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import fo.pigdm.colors2048.R;
 import fo.pigdm.colors2048.logic.GameEngine;
@@ -23,11 +22,11 @@ import fo.pigdm.colors2048.view.GameView;
 import fo.pigdm.colors2048.view.IView;
 import fo.pigdm.colors2048.utils.SoundPlayer;
 import fo.pigdm.colors2048.view.gameDialogs.GameOverDialogFragment;
-import fo.pigdm.colors2048.view.gameDialogs.GameWinDialogFragment;
-import fo.pigdm.colors2048.view.gameDialogs.OnGameOverListener;
-import fo.pigdm.colors2048.view.gameDialogs.OnGameWonListener;
-import fo.pigdm.colors2048.view.gameDialogs.OnTileMergeListener;
-import fo.pigdm.colors2048.view.gameDialogs.OnTileMoveListener;
+import fo.pigdm.colors2048.view.gameDialogs.GameWonDialogFragment;
+import fo.pigdm.colors2048.view.listeners.OnGameOverListener;
+import fo.pigdm.colors2048.view.listeners.OnGameWonListener;
+import fo.pigdm.colors2048.view.listeners.OnTileMergeListener;
+import fo.pigdm.colors2048.view.listeners.OnTileMoveListener;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -57,11 +56,11 @@ public class GameActivity extends AppCompatActivity {
         currentLevel = Integer.parseInt(gameSettings.getString("level", "0"));
         soundFX = gameSettings.getBoolean("sound_effects", false);
         bgMusic = gameSettings.getBoolean("background_music", false);
-        gridDim = Integer.parseInt(gameSettings.getString("grid_dim", "1"));
+        gridDim = Integer.parseInt(gameSettings.getString("grid_dim", "4"));
     }
 
     public void showWinnerDialog() {
-        GameWinDialogFragment gameWinDialog = new GameWinDialogFragment();
+        GameWonDialogFragment gameWinDialog = new GameWonDialogFragment();
         gameWinDialog.setCancelable(false);
         gameWinDialog.show(getSupportFragmentManager(), "game_win");
     }
@@ -99,21 +98,22 @@ public class GameActivity extends AppCompatActivity {
         if(musicPlayer != null) {
             musicPlayer.setLooping(true);
             musicPlayer.setVolume(0.1f, 0.1f);
-            //if(bgMusic)
-               // musicPlayer.start();
         }
 
         gameEngine = new GameEngine();
 
         //retrieve saved settings
         gameEngine.setCurrentLevel(currentLevel);
-        gameEngine.setGridDim(gridDim);
+        if(gridDim >= 4 && gridDim <= 5)
+            gameEngine.setGridDim(gridDim);
+        else
+            gameEngine.setGridDim(4);
 
         //set class instances
         gameView = findViewById(R.id.gameView);
         colorPaletteView = findViewById(R.id.colorPaletteView);
 
-        gameEngine.setView(gameView, colorPaletteView);
+        gameEngine.setView((IView)gameView, (IView)colorPaletteView);
         gameView.setView(colorPaletteView);
         colorPaletteView.setView(gameView);
         gameView.setLogic(gameEngine);

@@ -1,4 +1,4 @@
-package fo.pigdm.colors2048.view.levelsRecyclerView;
+package fo.pigdm.colors2048.view.listeners;
 
 import android.view.View;
 

@@ -38,8 +38,6 @@ public class GameOverDialogFragment extends DialogFragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked next level button
-                        //GameView.logic.setCurrentLevel(GameView.logic.getCurrentLevel() + 1);
-                        //GameView.logic.newGame();
                         result.putString("lostResponse", "RETRY");
                         getParentFragmentManager().setFragmentResult("onGameOverUserAction", result);
                     }
